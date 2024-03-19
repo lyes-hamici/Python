@@ -31,7 +31,6 @@ class View:
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
         while True:
-            print(self.difficulty)
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
