@@ -95,14 +95,25 @@ class Model:
         return count
     #count the number of mines around a cell for the set_numbers function
 
+    #=================GAME LOGIC=================#
 
     def game_logic(self, x, y):
         if self.matrix_variable[x][y] == -1:
-            self.apparent_matrix[x][y] = "X"
+            self.apparent_matrix[x][y] = -1
             return "Game Over"
         else:
             self.apparent_matrix[x][y] = self.matrix_variable[x][y]
+            if self.check_win():
+                self.show_mines()
+                return "You win"
             return "Continue"
+        
+    def check_win(self):
+        if len(self.vis) == self.matrix_size * self.matrix_size - self.mines_number:
+            return True
+        else:
+            return False
+
         
     #=================DISPLAY CASES=================#
         
