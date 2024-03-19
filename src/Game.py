@@ -3,7 +3,6 @@ import time
 
 class Game:
     margin = 10
-    # grid = ()
     def __init__(self, view) -> None:
         self.view = view
         self.difficulty = view.difficulty
@@ -49,7 +48,6 @@ class Game:
         start_x = (self.view.WIDTH - grid_width) // 2
         start_y = (self.view.HEIGHT - grid_height) // 2
         Game.margin = (start_x, start_y)
-        # Game.grid = (grid_width, grid_height)
         
     def draw_grid(self, rows, cols):
         '''Draws the grid based on the rows and cols given as parameters'''
@@ -59,7 +57,7 @@ class Game:
             for x in range(0, cols):
                 y_increment = y * self.TILE_SIZE
                 x_increment = x * self.TILE_SIZE
-                
+                #!!!!!CHANGE THE NUMBERS!!!!!
                 if self.board[y][x] == 0:
                     self.window.blit(self.base_tile, (start_x + x_increment, start_y + y_increment))
                 elif self.board[y][x] == 1:
