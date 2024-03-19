@@ -1,14 +1,19 @@
 import pygame
 from Game import Game
-import random
+# from Controller import Controller
 
 class View:
+    START_MENU = 0
+    GAME = 1
+    END_MENU = 2
+    
     def __init__(self, controller) -> None:
             # Configuration of the window & the game (maybe put on another config file)
             self.WIDTH = 500
             self.HEIGHT = 500
             self.COLOR = "#C0C0C0"
             self.difficulty = 'easy'
+            self.current_state = View.GAME
             
             # Initialize the pygame & setup the window
             pygame.init()
@@ -24,13 +29,49 @@ class View:
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
         while True:
-            #event loop -> put on controller
-            for event in pygame.event.get():
+            # Conditions to change the state of the game
+            if self.current_state == View.START_MENU:
+                self.handle_start_menu_events()
+            elif self.current_state == View.GAME:
+                self.handle_game_events()
+                self.game.draw()
+            elif self.current_state == View.END_MENU:
+                self.handle_end_menu_events()
+            
+            # Put on screen the drawing     
+            pygame.display.update()
+    
+    def handle_game_events(self):
+        '''Handles the game events'''
+        for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
-            self.game.draw()       
-            pygame.display.update()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    x = (x - Game.margin[0]) // self.game.TILE_SIZE
+                    y = (y - Game.margin[1]) // self.game.TILE_SIZE
+                    self.controller.set_position(x, y)
+                    
+    def handle_start_menu_events(self):
+        '''Handles the start menu events'''
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+    def handle_end_menu_events(self):
+        '''Handles the end menu events'''
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                    
+    def set_current_state(self, state):
+        '''Sets the current state of the game'''
+        self.current_state = state
+    def set_difficulty(self, difficulty):
+        '''Sets the difficulty of the game'''
+        self.difficulty = difficulty
     
     
         
@@ -40,6 +81,8 @@ if __name__ == "__main__":
     class Controller:
         def __init__(self) -> None:
             self.board = [[0 for _ in range(10)] for _ in range(10)]
+        def set_position(self, x, y):
+            self.board[y][x] = 1
     controller = Controller()
     board = controller.board
     board[1][1] = 1
