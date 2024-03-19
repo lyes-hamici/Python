@@ -55,6 +55,7 @@ class View:
                     x = (x - Game.margin[0]) // self.game.TILE_SIZE
                     y = (y - Game.margin[1]) // self.game.TILE_SIZE
                     self.controller.set_position(x, y)
+                    self.game.board = self.controller.get_apparent_matrix()
                     
     def handle_start_menu_events(self):
         '''Handles the start menu events'''
