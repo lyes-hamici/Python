@@ -13,7 +13,7 @@ class View:
             self.WIDTH = 500
             self.HEIGHT = 500
             self.COLOR = "#C0C0C0"
-            self.difficulty = 'easy'
+            self.difficulty = None
             self.current_state = View.START_MENU
             
             # Initialize the pygame & setup the window
@@ -31,6 +31,7 @@ class View:
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
         while True:
+            print(self.difficulty)
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
