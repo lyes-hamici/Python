@@ -22,10 +22,12 @@ class Menu:
         self.BG = pygame.transform.scale(self.BG, self.size)
 
         self.play_button = pygame.image.load("assets\\images\\button\\Play Rect.png")
-        self.play_button = pygame.transform.scale(self.play_button, self.size_button) 
+        self.play_button = pygame.transform.scale(self.play_button, self.size_button)
 
         self.quit_button = pygame.image.load("assets\\images\\button\\Quit Rect.png")
         self.quit_button = pygame.transform.scale(self.quit_button, self.size_button)
+
+        self.difficulty = ""
 
 
 
@@ -151,6 +153,7 @@ class Menu:
                         self.view.set_current_state(self.view.GAME)
                         self.run = False
                         mixer.music.stop()
+                        self.choose_difficulty()
 
                     if GO_BACK_BUTTON.checkForInput(MENU_MOUSE_POS):
                         self.main_menu()
@@ -266,3 +269,60 @@ class Menu:
                         sys.exit()
                             
             pygame.display.update()
+
+
+
+    def choose_difficulty(self):
+        difficulty = self.police_big.render(f"Choose a difficulty",True,"white")
+        while True:
+            self.SCREEN.blit(self.BG, (0, 0))
+            self.SCREEN.blit(difficulty, (100, 50))
+            
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+
+           
+            EASY_BUTTON = Button(image=self.play_button, pos=(250, 180), 
+                                text_input="Easy", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
+            
+            MEDIUM_BUTTON = Button(image=self.quit_button, pos=(250, 300), 
+                                text_input="Medium", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
+            
+            HARD_BUTTON = Button(image=self.quit_button, pos=(250, 420), 
+                                text_input="Hard", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
+
+
+            for button in [EASY_BUTTON,MEDIUM_BUTTON,HARD_BUTTON]:
+
+                button.changeColor(MENU_MOUSE_POS)
+
+                button.update(self.SCREEN)
+
+            
+            for event in pygame.event.get():
+
+                if event.type == pygame.QUIT:
+
+                    pygame.quit()
+
+                    sys.exit()
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+
+                    if EASY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.difficulty = "easy"
+                        self.get_difficulty()
+   
+                    if MEDIUM_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.difficulty = "medium"
+                        self.get_difficulty()
+
+                    if HARD_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.difficulty = "hard"
+                        self.get_difficulty()
+                            
+            pygame.display.update()
+
+
+    def get_difficulty(self):
+        return self.difficulty
