@@ -5,7 +5,8 @@ from pygame import *
 from pygame.locals import *
 
 class Menu:
-    def __init__(self):
+    def __init__(self, view):
+        self.view = view
         pygame.init()
         self.WIDTH = 500
         self.HEIGHT = 500
@@ -146,7 +147,10 @@ class Menu:
 
                 if event.type == pygame.MOUSEBUTTONDOWN: 
                     if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        print(self.user_text)
+                        print(self.user_text) ### Self.run = false & current state = game
+                        self.view.set_current_state(self.view.GAME)
+                        self.run = False
+                        mixer.music.stop()
 
                     if GO_BACK_BUTTON.checkForInput(MENU_MOUSE_POS):
                         self.main_menu()

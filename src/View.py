@@ -1,19 +1,20 @@
 import pygame
 from Game import Game
+from Menu import Menu
 # from Controller import Controller
 
 class View:
+    # Static variables to represent the states of the game (frames)
     START_MENU = 0
     GAME = 1
     END_MENU = 2
-    
     def __init__(self, controller) -> None:
             # Configuration of the window & the game (maybe put on another config file)
             self.WIDTH = 500
             self.HEIGHT = 500
             self.COLOR = "#C0C0C0"
             self.difficulty = 'easy'
-            self.current_state = View.GAME
+            self.current_state = View.START_MENU
             
             # Initialize the pygame & setup the window
             pygame.init()
@@ -23,6 +24,7 @@ class View:
             # Initialize the game and the controller
             self.controller = controller
             self.game = Game(self)
+            self.menu = Menu(self)
             
             
             
@@ -32,6 +34,7 @@ class View:
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
+                self.menu.main_menu()
             elif self.current_state == View.GAME:
                 self.handle_game_events()
                 self.game.draw()
