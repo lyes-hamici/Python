@@ -150,7 +150,6 @@ class Menu:
                 if event.type == pygame.MOUSEBUTTONDOWN: 
                     if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
                         print(self.user_text) ### Self.run = false & current state = game
-                        self.view.set_current_state(self.view.GAME)
                         self.run = False
                         mixer.music.stop()
                         self.choose_difficulty()
@@ -274,7 +273,8 @@ class Menu:
 
     def choose_difficulty(self):
         difficulty = self.police_big.render(f"Choose a difficulty",True,"white")
-        while True:
+        self.current_run = True
+        while self.current_run:
             self.SCREEN.blit(self.BG, (0, 0))
             self.SCREEN.blit(difficulty, (100, 50))
             
@@ -310,16 +310,25 @@ class Menu:
                 if event.type == pygame.MOUSEBUTTONDOWN:
 
                     if EASY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.view.set_current_state(self.view.GAME)
+                        self.current_run = False
                         self.difficulty = "easy"
-                        self.get_difficulty()
+                        self.view.set_difficulty(self.difficulty)
+                        
    
                     if MEDIUM_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.view.set_current_state(self.view.GAME)
+                        self.current_run = False
                         self.difficulty = "medium"
-                        self.get_difficulty()
+                        self.view.set_difficulty(self.difficulty)
+                        
 
                     if HARD_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.view.set_current_state(self.view.GAME)
+                        self.current_run = False
                         self.difficulty = "hard"
-                        self.get_difficulty()
+                        self.view.set_difficulty(self.difficulty)
+                        
                             
             pygame.display.update()
 
