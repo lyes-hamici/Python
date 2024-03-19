@@ -7,7 +7,7 @@ class Game:
         self.view = view
         self.window = view.window
         self.controller = view.controller
-        self.board = self.controller.board
+        self.board = self.controller.get_apparent_matrix()
         self.TILE_SIZE = 30
         
     #Loading assets for the game itself (maybe put on a config file)
