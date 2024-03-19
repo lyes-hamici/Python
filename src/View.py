@@ -13,7 +13,7 @@ class View:
             self.WIDTH = 500
             self.HEIGHT = 500
             self.COLOR = "#C0C0C0"
-            self.difficulty = 'easy'
+            self.difficulty = None
             self.current_state = View.START_MENU
             
             # Initialize the pygame & setup the window
