@@ -5,7 +5,6 @@ class Game:
     margin = 10
     def __init__(self, view) -> None:
         self.view = view
-        self.difficulty = view.difficulty
         self.window = view.window
         self.controller = view.controller
         self.board = self.controller.board
@@ -28,16 +27,15 @@ class Game:
     def draw(self):
         '''Draws the game play interface'''
         self.window.fill(self.view.COLOR)
-        
         # Draw the grid based on the difficulty
-        if self.difficulty == 'easy':
+        if self.view.difficulty == 'easy':
             self.calculate_margin(10, 10)
             self.draw_grid(10, 10)
             self.draw_timer()
-        elif self.difficulty == 'medium':
+        elif self.view.difficulty == 'medium':
             self.calculate_margin(20, 20)
             self.draw_grid(20, 20)
-        elif self.difficulty == 'hard':
+        elif self.view.difficulty == 'hard':
             self.calculate_margin(30, 40)
             self.draw_grid(30, 40)
             
