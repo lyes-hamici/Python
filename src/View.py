@@ -36,6 +36,8 @@ class View:
                 self.handle_start_menu_events()
                 self.menu.main_menu()
             elif self.current_state == View.GAME:
+                #if self.difficulty != None and not self.controller.difficulty == self.difficulty:
+                    #self.controller.difficulty = self.difficulty
                 self.handle_game_events()
                 self.game.draw()
             elif self.current_state == View.END_MENU:
@@ -55,6 +57,7 @@ class View:
                     x = (x - Game.margin[0]) // self.game.TILE_SIZE
                     y = (y - Game.margin[1]) // self.game.TILE_SIZE
                     self.controller.set_position(x, y)
+                
                     
     def handle_start_menu_events(self):
         '''Handles the start menu events'''
@@ -75,6 +78,9 @@ class View:
     def set_difficulty(self, difficulty):
         '''Sets the difficulty of the game'''
         self.difficulty = difficulty
+    def get_difficulty(self):
+        '''Gets the difficulty of the game'''
+        return self.difficulty
     
     
         
