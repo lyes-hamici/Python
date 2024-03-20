@@ -6,8 +6,7 @@ class Game:
     def __init__(self, view) -> None:
         self.view = view
         self.window = view.window
-        self.controller = view.controller
-        self.board = self.controller.get_apparent_matrix()
+        self.board = self.view.controller.get_apparent_matrix()
         self.TILE_SIZE = 30
         
     #Loading assets for the game itself (maybe put on a config file)
@@ -24,6 +23,7 @@ class Game:
         self.digital_hyphen = pygame.transform.scale(pygame.image.load("assets/images/digits/-.png"), (20, 30))
         self.digital_null = pygame.transform.scale(pygame.image.load("assets/images/digits/null.png"), (20, 30))
         
+        
     def draw(self):
         '''Draws the game play interface'''
         self.window.fill(self.view.COLOR)
@@ -38,7 +38,7 @@ class Game:
         elif self.view.difficulty == 'hard':
             self.calculate_margin(30, 40)
             self.draw_grid(30, 40)
-            
+
     def calculate_margin(self,rows, cols):
         '''Sets the margin of the game'''
         grid_width = rows * self.TILE_SIZE
@@ -58,7 +58,7 @@ class Game:
                 #!!!!!CHANGE THE NUMBERS!!!!!
                 if self.board[y][x] == 0:
                     self.window.blit(self.base_tile, (start_x + x_increment, start_y + y_increment))
-                    if [x,y] in self.controller.get_vis():
+                    if [x,y] in self.view.controller.get_vis():
                         self.window.blit(self.empty_tile, (start_x + x_increment, start_y + y_increment))
                 elif self.board[y][x] == -1:
                     self.window.blit(self.bomb_tile, (start_x + x_increment, start_y + y_increment))
