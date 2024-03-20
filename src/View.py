@@ -33,7 +33,6 @@ class View:
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
         while True:
-            self.game.board = self.controller.get_apparent_matrix()
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
@@ -83,6 +82,8 @@ class View:
                     elif event.button == 3 and is_in_grid:
                         print("right click",x,y)
                         self.controller.on_right_click(y, x)
+                self.game.board = self.controller.get_apparent_matrix()
+                    
                     
     def handle_start_menu_events(self):
         '''Handles the start menu events'''
