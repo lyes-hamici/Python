@@ -33,6 +33,7 @@ class View:
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
         while True:
+            self.game.board = self.controller.get_apparent_matrix()
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
@@ -43,8 +44,9 @@ class View:
                     #self.controller.difficulty = self.difficulty
                     self.controller.create_game_board()
                     self.game.board = self.controller.get_apparent_matrix()
-                self.handle_game_events()
                 self.game.draw()
+                self.handle_game_events()
+                
             elif self.current_state == View.END_MENU:
                 self.handle_end_menu_events()
             
@@ -65,14 +67,19 @@ class View:
                     x, y = pygame.mouse.get_pos()
                     x = (x - Game.margin[0]) // self.game.TILE_SIZE
                     y = (y - Game.margin[1]) // self.game.TILE_SIZE
-                    if self.is_it_first_click == True:
-                        self.controller.set_mines()
-                        self.controller.set_numbers()
-                        self.is_it_first_click = False
-                    # Temporary solution to resolve the inversion of the x and y
-                    self.controller.game_logic(y, x)
-                    self.controller.show_cases(y, x)
-                    self.game.board = self.controller.get_apparent_matrix()
+                    if event.button == 1:
+                        if self.is_it_first_click == True:
+                            self.controller.set_mines()
+                            self.controller.set_numbers()
+                            self.is_it_first_click = False
+                        # Temporary solution to resolve the inversion of the x and y
+                        self.controller.game_logic(y, x)
+                        self.controller.show_cases(y, x)
+                    elif event.button == 3:
+                        print("right click",x,y)
+                    
+                    
+                    
                     print(" game board ")
                     for i in self.game.board:
                         print(i)
