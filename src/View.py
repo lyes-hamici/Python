@@ -15,6 +15,8 @@ class View:
             self.COLOR = "#C0C0C0"
             self.difficulty = None
             self.current_state = View.START_MENU
+            self.is_matrix_created = False
+            self.is_it_first_click = True
             
             # Initialize the pygame & setup the window
             pygame.init()
@@ -36,8 +38,11 @@ class View:
                 self.handle_start_menu_events()
                 self.menu.main_menu()
             elif self.current_state == View.GAME:
-                #if self.difficulty != None and not self.controller.difficulty == self.difficulty:
+                if self.controller.difficulty != None and self.is_matrix_created == False:
+                    self.is_matrix_created = True
                     #self.controller.difficulty = self.difficulty
+                    self.controller.create_game_board()
+                    self.game.board = self.controller.get_apparent_matrix()
                 self.handle_game_events()
                 self.game.draw()
             elif self.current_state == View.END_MENU:
@@ -45,6 +50,10 @@ class View:
             
             # Put on screen the drawing     
             pygame.display.update()
+    
+    def on_click_cell(self, x, y):
+        '''Handles the click on a cell'''
+        return self.click_attributes(x, y , is_first_click = False)
     
     def handle_game_events(self):
         '''Handles the game events'''
@@ -56,8 +65,16 @@ class View:
                     x, y = pygame.mouse.get_pos()
                     x = (x - Game.margin[0]) // self.game.TILE_SIZE
                     y = (y - Game.margin[1]) // self.game.TILE_SIZE
-                    self.controller.set_position(x, y)
+                    if self.is_it_first_click == True:
+                        self.controller.set_mines()
+                        self.controller.set_numbers()
+                        self.is_it_first_click = False
+                    self.controller.game_logic(x, y)
+                    self.controller.show_cases(x, y)
                     self.game.board = self.controller.get_apparent_matrix()
+                    print(" game board ")
+                    for i in self.game.board:
+                        print(i)
                     
     def handle_start_menu_events(self):
         '''Handles the start menu events'''
@@ -78,9 +95,10 @@ class View:
     def set_difficulty(self, difficulty):
         '''Sets the difficulty of the game'''
         self.difficulty = difficulty
+        self.controller.set_difficulty(difficulty)
     def get_difficulty(self):
         '''Gets the difficulty of the game'''
-        return self.difficulty
+        return self.menu.get_difficulty()
     
     
         

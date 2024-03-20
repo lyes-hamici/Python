@@ -58,32 +58,32 @@ class Game:
                 #!!!!!CHANGE THE NUMBERS!!!!!
                 if self.board[y][x] == 0:
                     self.window.blit(self.base_tile, (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 1:
-                    self.window.blit(self.empty_tile, (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 2:
+                    if [x,y] in self.controller.get_vis():
+                        self.window.blit(self.empty_tile, (start_x + x_increment, start_y + y_increment))
+                elif self.board[y][x] == -1:
                     self.window.blit(self.bomb_tile, (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 3:
+                elif self.board[y][x] == 11:
                     self.window.blit(self.flag_tile, (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 4:
+                elif self.board[y][x] == 12:
                     self.window.blit(self.interrogant_tile, (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 5:
+                elif self.board[y][x] == 13:
                     self.window.blit(self.clicked_bomb_tile, (start_x + x_increment, start_y + y_increment))
                 
-                elif self.board[y][x] == 11:
+                elif self.board[y][x] == 1:
                     self.window.blit(self.tile_numbers[0], (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 12:
+                elif self.board[y][x] == 2:
                     self.window.blit(self.tile_numbers[1], (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 13:
+                elif self.board[y][x] == 3:
                     self.window.blit(self.tile_numbers[2], (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 14:
+                elif self.board[y][x] == 4:
                     self.window.blit(self.tile_numbers[3], (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 15:
+                elif self.board[y][x] == 5:
                     self.window.blit(self.tile_numbers[4], (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 16:
+                elif self.board[y][x] == 6:
                     self.window.blit(self.tile_numbers[5], (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 17:
+                elif self.board[y][x] == 7:
                     self.window.blit(self.tile_numbers[6], (start_x + x_increment, start_y + y_increment))
-                elif self.board[y][x] == 18:
+                elif self.board[y][x] == 8:
                     self.window.blit(self.tile_numbers[7], (start_x + x_increment, start_y + y_increment))
                     
     def draw_timer(self):

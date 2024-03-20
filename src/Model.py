@@ -13,6 +13,9 @@ class Model:
 
     #=================SETTERS AND GETTERS=================#
         #=================SETTERS=================#
+    def set_position(self, x, y):
+        self.x = x
+        self.y = y
 
     def set_mines_number(self, mines_number):
         self.mines_number = mines_number
@@ -58,6 +61,9 @@ class Model:
     
     def get_clicked_positions(self):
         return self.clicked_positions
+    
+    def get_vis(self):
+        return self.vis
     
     #=================CREATING GAME OBJECTS=================#
 
@@ -124,7 +130,16 @@ class Model:
             self.game_status = "Game Over"
         #if the case is a mine, the game is over and the mines are shown
         elif self.matrix_variable[x][y] == 0:
+            print ("apparent matrix")
+            for i in self.apparent_matrix:
+                print(i)
+            print ("matrix variable")
+            for i in self.matrix_variable:
+                print(i)
             self.show_neighbours(x, y)
+            print ("apparent matrix after show_neighbours")
+            for i in self.apparent_matrix:
+                print(i)
         #if the case is empty, the empty cases are shown
         
 
