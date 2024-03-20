@@ -174,7 +174,7 @@ class Model:
                 if x < self.matrix_size - 1 and y < self.matrix_size - 1:
                     self.show_neighbours(x+1, y+1)
                 #show the neighbours of an empty case
-            if self.matrix_variable[x][y] != 0:
+            if self.matrix_variable[x][y] != 0 and self.matrix_variable[x][y] != -1:
                 self.apparent_matrix[x][y] = self.matrix_variable[x][y]
             #show the number of mines around a case              
 #==================================================================================================#
