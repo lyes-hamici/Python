@@ -2,7 +2,9 @@ import pygame
 import time
 
 class Game:
-    margin = 10
+    margin = ()
+    rows = 0
+    cols = 0
     def __init__(self, view) -> None:
         self.view = view
         self.window = view.window
@@ -46,6 +48,8 @@ class Game:
         start_x = (self.view.WIDTH - grid_width) // 2
         start_y = (self.view.HEIGHT - grid_height) // 2
         Game.margin = (start_x, start_y)
+        Game.rows = rows
+        Game.cols = cols
         
     def draw_grid(self, rows, cols):
         '''Draws the grid based on the rows and cols given as parameters'''
@@ -58,7 +62,7 @@ class Game:
                 #!!!!!CHANGE THE NUMBERS!!!!!
                 if self.board[y][x] == 0:
                     self.window.blit(self.base_tile, (start_x + x_increment, start_y + y_increment))
-                    if [x,y] in self.view.controller.get_vis():
+                    if [y,x] in self.view.controller.get_vis():
                         self.window.blit(self.empty_tile, (start_x + x_increment, start_y + y_increment))
                 elif self.board[y][x] == -1:
                     self.window.blit(self.bomb_tile, (start_x + x_increment, start_y + y_increment))
