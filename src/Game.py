@@ -58,7 +58,7 @@ class Game:
                 #!!!!!CHANGE THE NUMBERS!!!!!
                 if self.board[y][x] == 0:
                     self.window.blit(self.base_tile, (start_x + x_increment, start_y + y_increment))
-                    if [x,y] in self.controller.get_vis():
+                    if [y,x] in self.controller.get_vis():
                         self.window.blit(self.empty_tile, (start_x + x_increment, start_y + y_increment))
                 elif self.board[y][x] == -1:
                     self.window.blit(self.bomb_tile, (start_x + x_increment, start_y + y_increment))

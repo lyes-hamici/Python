@@ -74,6 +74,7 @@ class View:
                     self.controller.show_cases(y, x)
                     self.game.board = self.controller.get_apparent_matrix()
                     print(" game board ")
+                    print(self.controller.get_vis())
                     for i in self.game.board:
                         print(i)
                     
