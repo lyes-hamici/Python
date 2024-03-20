@@ -69,8 +69,9 @@ class View:
                         self.controller.set_mines()
                         self.controller.set_numbers()
                         self.is_it_first_click = False
-                    self.controller.game_logic(x, y)
-                    self.controller.show_cases(x, y)
+                    # Temporary solution to resolve the inversion of the x and y
+                    self.controller.game_logic(y, x)
+                    self.controller.show_cases(y, x)
                     self.game.board = self.controller.get_apparent_matrix()
                     print(" game board ")
                     for i in self.game.board:
