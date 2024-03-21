@@ -33,13 +33,14 @@ class Game:
         if self.view.difficulty == 'easy':
             self.calculate_margin(10, 10)
             self.draw_grid(10, 10)
-            self.draw_timer()
         elif self.view.difficulty == 'medium':
             self.calculate_margin(20, 20)
             self.draw_grid(20, 20)
         elif self.view.difficulty == 'hard':
             self.calculate_margin(30, 40)
             self.draw_grid(30, 40)
+        self.draw_timer()
+        self.draw_flag_counter()
 
     def calculate_margin(self,rows, cols):
         '''Sets the margin of the game'''
@@ -92,15 +93,24 @@ class Game:
                     
     def draw_timer(self):
         '''Draws the timer on the screen'''
-        timer_x = self.view.WIDTH // 2 - 60
-        timer_y = Game.margin[1] - 50
+        timer_x = self.view.WIDTH // 2 - self.digital_numbers[0].get_width() // 2 * 5
+        timer_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
+        
         self.window.blit(self.digital_numbers[5], (timer_x, timer_y))
-        self.window.blit(self.digital_numbers[0], (timer_x + 20, timer_y))
-        self.window.blit(self.digital_numbers[0], (timer_x + 40, timer_y))
-        self.window.blit(self.digital_hyphen, (timer_x + 60, timer_y))
-        self.window.blit(self.digital_numbers[6], (timer_x + 80, timer_y))
-        self.window.blit(self.digital_numbers[0], (timer_x + 100, timer_y))
-        self.window.blit(self.digital_numbers[0], (timer_x + 120, timer_y))
+        self.window.blit(self.digital_numbers[0], (timer_x + 22, timer_y))
+        self.window.blit(self.digital_hyphen, (timer_x + 47, timer_y))
+        self.window.blit(self.digital_numbers[6], (timer_x + 72, timer_y))
+        self.window.blit(self.digital_numbers[0], (timer_x + 94, timer_y))
+    
+    def draw_flag_counter(self):
+        '''Draws the flag counter on the screen'''
+        flag_counter_x = (self.view.WIDTH - Game.margin[0] ) - self.digital_numbers[0].get_width() * 2
+        flag_counter_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
+
+        self.window.blit(self.flag_tile, (flag_counter_x + 68, flag_counter_y))
+        self.window.blit(self.digital_numbers[0], (flag_counter_x, flag_counter_y))
+        self.window.blit(self.digital_numbers[0], (flag_counter_x + 22, flag_counter_y))
+        self.window.blit(self.digital_numbers[0], (flag_counter_x + 44, flag_counter_y))
         
     def load_tile_numbers(self):
         '''Loads the tile numbers from the assets folder and returns them as a list of images'''
