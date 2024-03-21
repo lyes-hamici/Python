@@ -1,6 +1,10 @@
 import pygame
 from Game import Game
 from Menu import Menu
+from Win import Win
+from Loose import Loose
+from User_menu import User_menu
+from Choose_difficulty import Choose_difficulty
 # from Controller import Controller
 
 class View:
@@ -27,6 +31,10 @@ class View:
             self.controller = controller
             self.game = Game(self)
             self.menu = Menu(self)
+            self.win = Win(self)
+            self.loose = Loose(self)
+            self.user_menu = User_menu(self)
+            self.choose_difficulty = Choose_difficulty(self)
             
             
             
@@ -37,6 +45,7 @@ class View:
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
                 self.menu.main_menu()
+
             elif self.current_state == View.GAME:
                 if self.controller.difficulty != None and self.is_matrix_created == False:
                     self.resize_window(self.controller.difficulty)
