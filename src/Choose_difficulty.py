@@ -34,7 +34,7 @@ class Choose_difficulty:
     def get_font(self,size): 
         return pygame.font.Font("assets\\font\\BroncoPersonalUse.ttf", size)
 
-    def choose_difficulty(self):
+    def choose_game_difficulty(self):
         difficulty = self.police_big.render(f"Choose a difficulty",True,"white")
         self.current_run = True
         self.SCREEN.blit(self.BG, (0, 0))
