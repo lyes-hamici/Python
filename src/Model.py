@@ -1,4 +1,6 @@
 from random import randint
+from time import sleep
+from time import time
 
 class Model:
     def __init__(self) -> None:
@@ -10,6 +12,9 @@ class Model:
         self.interrogation_positions = ()
         self.clicked_positions = ()
         self.vis = []
+        self.timer_running = False
+        self.timer = 0
+        self.time_start = 0
 
     #=================SETTERS AND GETTERS=================#
         #=================SETTERS=================#
@@ -104,11 +109,13 @@ class Model:
     #=================GAME LOGIC=================#
 
     def game_logic(self, x, y):
-        if self.check_lose():
-            print ("game over")
-            return "Game Over", False
-        elif self.matrix_variable[x][y] == 0 or self.matrix_variable[x][y] == -1:
+        if self.matrix_variable[x][y] == 0 or self.matrix_variable[x][y] == -1:
             self.show_cases(x, y)
+            if self.check_lose():
+                self.show_mines()
+                self.timer_running = False
+                print ("game over")
+                return "Game Over", False
         else:
             self.apparent_matrix[x][y] = self.matrix_variable[x][y]
             if [x,y] not in self.vis:
@@ -139,9 +146,6 @@ class Model:
         if self.matrix_variable[x][y] == -1:
             self.apparent_matrix[x][y] = 13
             self.vis.append([x,y])
-            self.show_mines()
-            self.game_status = "Game Over"
-        #if the case is a mine, the game is over and the mines are shown
         elif self.matrix_variable[x][y] == 0:
             print ("apparent matrix")
             for i in self.apparent_matrix:
@@ -198,9 +202,23 @@ class Model:
         elif self.apparent_matrix[x][y] == 11:
             self.apparent_matrix[x][y] = 12
         elif self.apparent_matrix[x][y] == 12:
-            self.apparent_matrix[x][y] = 0     
+            self.apparent_matrix[x][y] = 0
 
-    
+    #=================TIMER=================#
+    def start_timer(self):
+        if not self.timer_running:
+            self.timer_running = True
+            self.time_start = time()
+
+    def update_timer(self):
+        if self.timer_running:
+            time_end = time()
+            self.timer = round(time_end - self.time_start)
+            minutes = self.timer // 60
+            seconds = self.timer % 60
+            self.timer = f"{minutes:02d}{seconds:02d}"
+        return int(self.timer)
+                 
 #==================================================================================================#
         #=================TESTING=================#
 
