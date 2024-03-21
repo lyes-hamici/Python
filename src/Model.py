@@ -180,7 +180,7 @@ class Model:
 
     #=================FLAG AND QUESTION MARKS=================#
     def action_right_click(self, x, y):
-        if self.apparent_matrix[x][y] == 0:
+        if self.apparent_matrix[x][y] == 0 and [x,y] not in self.vis:
             self.apparent_matrix[x][y] = 11
         elif self.apparent_matrix[x][y] == 11:
             self.apparent_matrix[x][y] = 12
