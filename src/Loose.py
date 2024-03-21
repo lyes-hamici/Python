@@ -4,7 +4,7 @@ import sys
 from pygame import *
 from pygame.locals import *
 
-class Win:
+class Loose:
     def __init__(self, view):
         self.view = view
         pygame.init()
