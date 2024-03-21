@@ -100,11 +100,11 @@ class Game:
         timer_x = self.view.WIDTH // 2 - self.digital_numbers[0].get_width() // 2 * 5
         timer_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
         
-        self.window.blit(self.digital_numbers[0], (timer_x, timer_y))
-        self.window.blit(self.digital_numbers[1], (timer_x + 22, timer_y))
+        self.window.blit(self.digital_numbers[parsed_timer[0]], (timer_x, timer_y))
+        self.window.blit(self.digital_numbers[parsed_timer[1]], (timer_x + 22, timer_y))
         self.window.blit(self.digital_hyphen, (timer_x + 47, timer_y))
-        self.window.blit(self.digital_numbers[2], (timer_x + 72, timer_y))
-        self.window.blit(self.digital_numbers[3], (timer_x + 94, timer_y))
+        self.window.blit(self.digital_numbers[parsed_timer[2]], (timer_x + 72, timer_y))
+        self.window.blit(self.digital_numbers[parsed_timer[3]], (timer_x + 94, timer_y))
         
         self.draw_text("Time", timer_x + 40, timer_y + 35, 20)
     
