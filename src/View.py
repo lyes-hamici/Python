@@ -20,6 +20,7 @@ class View:
             
             # Initialize the pygame & setup the window
             pygame.init()
+            pygame.font.init()
             self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
             pygame.display.set_caption("MineSweeper")
             
@@ -32,7 +33,10 @@ class View:
             
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
+        count = 0
         while True:
+            count += 0.1
+            self.game.flag_count = int(count)
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()

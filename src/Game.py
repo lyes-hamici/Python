@@ -11,6 +11,8 @@ class Game:
         self.board = self.view.controller.get_apparent_matrix()
         self.TILE_SIZE = 30
         
+        self.flag_count = 0
+        
     #Loading assets for the game itself (maybe put on a config file)
         # Tiles assets   
         self.tile_numbers = self.load_tile_numbers()
@@ -40,7 +42,7 @@ class Game:
             self.calculate_margin(30, 40)
             self.draw_grid(30, 40)
         self.draw_timer()
-        self.draw_flag_counter()
+        self.draw_flag_counter(self.flag_count)
 
     def calculate_margin(self,rows, cols):
         '''Sets the margin of the game'''
@@ -101,16 +103,40 @@ class Game:
         self.window.blit(self.digital_hyphen, (timer_x + 47, timer_y))
         self.window.blit(self.digital_numbers[6], (timer_x + 72, timer_y))
         self.window.blit(self.digital_numbers[0], (timer_x + 94, timer_y))
+        
+        self.draw_text("Time", timer_x + 40, timer_y + 35, 20)
     
-    def draw_flag_counter(self):
+    def draw_flag_counter(self,digit):
+        parsed_digit = [int(i) for i in str(digit)]
         '''Draws the flag counter on the screen'''
         flag_counter_x = (self.view.WIDTH - Game.margin[0] ) - self.digital_numbers[0].get_width() * 2
         flag_counter_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
 
         self.window.blit(self.flag_tile, (flag_counter_x + 68, flag_counter_y))
-        self.window.blit(self.digital_numbers[0], (flag_counter_x, flag_counter_y))
-        self.window.blit(self.digital_numbers[0], (flag_counter_x + 22, flag_counter_y))
-        self.window.blit(self.digital_numbers[0], (flag_counter_x + 44, flag_counter_y))
+        self.draw_text("Flags", flag_counter_x + 20, flag_counter_y + 35, 20)
+        if len(parsed_digit) == 1:
+            self.window.blit(self.digital_numbers[0], (flag_counter_x, flag_counter_y))
+            self.window.blit(self.digital_numbers[0], (flag_counter_x + 22, flag_counter_y))
+            self.window.blit(self.digital_numbers[parsed_digit[0]], (flag_counter_x + 44, flag_counter_y))
+        elif len(parsed_digit) == 2:
+            self.window.blit(self.digital_numbers[0], (flag_counter_x, flag_counter_y))
+            self.window.blit(self.digital_numbers[parsed_digit[0]], (flag_counter_x + 22, flag_counter_y))
+            self.window.blit(self.digital_numbers[parsed_digit[1]], (flag_counter_x + 44, flag_counter_y))
+        elif len(parsed_digit) == 3:
+            self.window.blit(self.digital_numbers[parsed_digit[0]], (flag_counter_x, flag_counter_y))
+            self.window.blit(self.digital_numbers[parsed_digit[1]], (flag_counter_x + 22, flag_counter_y))
+            self.window.blit(self.digital_numbers[parsed_digit[2]], (flag_counter_x + 44, flag_counter_y))
+        else:
+            self.window.blit(self.digital_null, (flag_counter_x, flag_counter_y))
+            self.window.blit(self.digital_null, (flag_counter_x + 22, flag_counter_y))
+            self.window.blit(self.digital_null, (flag_counter_x + 44, flag_counter_y))
+        
+    def draw_text(self, text, x, y, size):
+        '''Draws text on the screen'''
+        font = pygame.font.Font(None, size)
+        text = font.render(text, True, (0,0,0))
+        self.window.blit(text, (x, y))
+        
         
     def load_tile_numbers(self):
         '''Loads the tile numbers from the assets folder and returns them as a list of images'''
