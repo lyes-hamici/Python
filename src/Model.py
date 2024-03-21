@@ -104,28 +104,41 @@ class Model:
     #=================GAME LOGIC=================#
 
     def game_logic(self, x, y):
-        if self.matrix_variable[x][y] == -1:
-            self.apparent_matrix[x][y] = -1
-            return "Game Over"
+        if self.check_lose():
+            print ("game over")
+            return "Game Over", False
+        elif self.matrix_variable[x][y] == 0 or self.matrix_variable[x][y] == -1:
+            self.show_cases(x, y)
         else:
             self.apparent_matrix[x][y] = self.matrix_variable[x][y]
+            if [x,y] not in self.vis:
+                self.vis.append([x,y])
             if self.check_win():
                 self.show_mines()
-                return "You win"
-            return "Continue"
+                print ("you win")
+                return "You win", True
+            return "Continue", None
         
     def check_win(self):
         if len(self.vis) == self.matrix_size * self.matrix_size - self.mines_number:
             return True
         else:
             return False
+        
+    def check_lose(self):
+        for i in range(self.matrix_size):
+            for j in range(self.matrix_size):
+                if self.apparent_matrix[i][j] == 13:
+                    return True
+        return False
 
         
     #=================DISPLAY CASES=================#
         
     def show_cases(self, x, y):
         if self.matrix_variable[x][y] == -1:
-            self.apparent_matrix[x][y] = -1
+            self.apparent_matrix[x][y] = 13
+            self.vis.append([x,y])
             self.show_mines()
             self.game_status = "Game Over"
         #if the case is a mine, the game is over and the mines are shown
@@ -146,7 +159,7 @@ class Model:
     def show_mines(self):
         for i in range(self.matrix_size):
             for j in range(self.matrix_size):
-                if self.matrix_variable[i][j] == -1:
+                if self.matrix_variable[i][j] == -1 and not [i,j] in self.vis:
                     self.apparent_matrix[i][j] = -1
     #show the mines when the game is over
 

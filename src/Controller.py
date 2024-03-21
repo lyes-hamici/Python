@@ -37,10 +37,6 @@ class Controller:
     def game_logic(self, x, y):
         '''Handles the game logic'''
         return self.model.game_logic(x, y)
-    
-    def show_cases(self, x, y):
-        '''Shows the cases'''
-        return self.model.show_cases(x, y)
 
     def set_numbers(self):
         '''Sets the number of mines'''
@@ -55,10 +51,6 @@ class Controller:
         elif self.difficulty == 'hard':
             self.model.set_mines_number(99)
         self.model.set_mines()
-
-    def check_win(self):
-        '''Checks if the player has won'''
-        return self.model.check_win()
     
     def on_right_click(self, x, y):
         '''Handles the right click'''
