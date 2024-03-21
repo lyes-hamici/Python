@@ -1,6 +1,7 @@
 from random import randint
 from time import sleep
 from time import time
+from random import uniform
 
 class Model:
     def __init__(self) -> None:
@@ -23,7 +24,13 @@ class Model:
         self.y = y
 
     def set_mines_number(self, mines_number):
-        self.mines_number = mines_number
+        '''Sets the number of mines to a value that is 20% more or less than mines_number'''
+        lower_mines_number = int(mines_number - mines_number * 0.2)
+        upper_mines_number = int(mines_number + mines_number * 0.2)
+        
+        print(f'lower_mines_number: {lower_mines_number}, upper_mines_number: {upper_mines_number}')
+        self.mines_number = randint(lower_mines_number, upper_mines_number)
+        print(f'mines_number: {self.mines_number}')
     
     def set_matrix_size(self, matrix_size):
         self.matrix_size = matrix_size
