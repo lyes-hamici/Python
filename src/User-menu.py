@@ -92,7 +92,7 @@ class User:
                     print(self.user_text) ### Self.run = false & current state = game
                     self.run = False
                     mixer.music.stop()
-                    self.get_running_user_menu()
+                    self.stop_running_user_menu()
 
                 if GO_BACK_BUTTON.checkForInput(MENU_MOUSE_POS):
                     self.active_go_to_main()
