@@ -171,58 +171,6 @@ class Menu:
             pygame.display.update()
 
 
-
-
-
-
-    def win(self):
-        pygame.display.set_caption("Loose Menu")
-        pygame.display.update()
-        win = self.police_small.render(f"Congratulations,you have defused all the bombs.",True,"white")
-        while True:
-            self.SCREEN.blit(self.BG, (0, 0))
-            self.SCREEN.blit(win, (50, 100))
-            
-            MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-
-           
-            MENU_BUTTON = Button(image=self.play_button, pos=(250, 280), 
-                                text_input="MENU", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-            
-            QUIT_BUTTON = Button(image=self.quit_button, pos=(250, 400), 
-                                text_input="QUIT", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-
-
-            for button in [MENU_BUTTON,QUIT_BUTTON]:
-
-                button.changeColor(MENU_MOUSE_POS)
-
-                button.update(self.SCREEN)
-
-            
-            for event in pygame.event.get():
-
-                if event.type == pygame.QUIT:
-
-                    pygame.quit()
-
-                    sys.exit()
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-
-                    if MENU_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.main_menu()
-   
-                    if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        pygame.quit()
-
-                        sys.exit()
-                            
-            pygame.display.update()
-
-
-
     def loose(self):
         pygame.display.set_caption("Loose Menu")
         pygame.display.update()
