@@ -59,6 +59,10 @@ class Controller:
     def check_win(self):
         '''Checks if the player has won'''
         return self.model.check_win()
+    
+    def on_right_click(self, x, y):
+        '''Handles the right click'''
+        return self.model.action_right_click(x, y)
         
 if __name__ == "__main__":
     controller = Controller()

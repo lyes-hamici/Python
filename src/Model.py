@@ -176,7 +176,18 @@ class Model:
                 #show the neighbours of an empty case
             if self.matrix_variable[x][y] != 0 and self.matrix_variable[x][y] != -1:
                 self.apparent_matrix[x][y] = self.matrix_variable[x][y]
-            #show the number of mines around a case              
+            #show the number of mines around a case    
+
+    #=================FLAG AND QUESTION MARKS=================#
+    def action_right_click(self, x, y):
+        if self.apparent_matrix[x][y] == 0:
+            self.apparent_matrix[x][y] = 11
+        elif self.apparent_matrix[x][y] == 11:
+            self.apparent_matrix[x][y] = 12
+        elif self.apparent_matrix[x][y] == 12:
+            self.apparent_matrix[x][y] = 0     
+
+    
 #==================================================================================================#
         #=================TESTING=================#
 
