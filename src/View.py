@@ -34,19 +34,20 @@ class View:
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
         count = 0
+        time = 0
         while True:
             # Test purposes
             count += 0.1
             time += 1
             self.game.flag_count = int(count)
             if len(str(time)) == 1:
-                self.game.timer += '000' + str(time)
+                self.game.timer = '000' + str(time)
             elif len(str(time)) == 2:
-                self.game.timer += '00' + str(time)
+                self.game.timer = '00' + str(time)
             elif len(str(time)) == 3:
-                self.game.timer += '0' + str(time)
+                self.game.timer = '0' + str(time)
             elif len(str(time)) == 4:
-                self.game.timer += str(time)
+                self.game.timer = str(time)
             # End of test purposes
             
             # Conditions to change the state of the game
