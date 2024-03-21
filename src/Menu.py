@@ -39,59 +39,61 @@ class Menu:
 
 
     def main_menu(self):
-        self.run = False
-        pygame.display.set_caption("Mines Weeper")
+        if self.go_to_enter_user_name == False:
+            pygame.display.set_caption("Mines Weeper")
 
-        musique = pygame.mixer.music.load("assets\\music\\Mission Impossible Theme (Full Theme).mp3")
-        mixer.music.set_volume(0.1)
-        mixer.music.play(-1)
+            musique = pygame.mixer.music.load("assets\\music\\Mission Impossible Theme (Full Theme).mp3")
+            mixer.music.set_volume(0.1)
+            mixer.music.play(-1)
 
-        self.running = True
-        self.SCREEN.blit(self.BG, (0, 0))
+            self.running = True
+            self.SCREEN.blit(self.BG, (0, 0))
 
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-
-        PLAY_BUTTON = Button(image=self.play_button, pos=(250, 280), 
-                            text_input="PLAY", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-        
-        
-        QUIT_BUTTON = Button(image=self.quit_button, pos=(250,400), 
-                            text_input="QUIT", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
 
 
-        for button in [PLAY_BUTTON,QUIT_BUTTON]:
+            PLAY_BUTTON = Button(image=self.play_button, pos=(250, 280), 
+                                text_input="PLAY", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
+            
+            
+            QUIT_BUTTON = Button(image=self.quit_button, pos=(250,400), 
+                                text_input="QUIT", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
 
-            button.changeColor(MENU_MOUSE_POS)
 
-            button.update(self.SCREEN)
+            for button in [PLAY_BUTTON,QUIT_BUTTON]:
 
-        
-        for event in pygame.event.get():
+                button.changeColor(MENU_MOUSE_POS)
 
-            if event.type == pygame.QUIT:
+                button.update(self.SCREEN)
 
-                pygame.quit()
+            
+            for event in pygame.event.get():
 
-                sys.exit()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-
-                #if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    self.active_go_to_user_menu()
-
-                
-                    
-
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if event.type == pygame.QUIT:
 
                     pygame.quit()
 
                     sys.exit()
 
+                if event.type == pygame.MOUSEBUTTONDOWN:
 
-        pygame.display.update()
+                    #if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.active_go_to_user_menu()
+                        self.view.user_menu.enter_user_name()
+
+                    if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+
+                        pygame.quit()
+
+                        sys.exit()
+
+                pygame.display.update()
+
+
+        else:
+            self.view.user_menu.enter_user_name()
+            pygame.display.update()
 
 
 
