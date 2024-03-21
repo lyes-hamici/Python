@@ -55,7 +55,19 @@ class Controller:
     def on_right_click(self, x, y):
         '''Handles the right click'''
         return self.model.action_right_click(x, y)
-        
+    
+    def start_timer(self):
+        '''Starts the timer'''
+        if self.view.is_it_first_click:
+            return self.model.start_timer()
+        else:
+            pass
+    
+    def update_timer(self):
+        '''Updates the timer'''
+        return self.model.update_timer()
+    
+                
 if __name__ == "__main__":
     controller = Controller()
     controller.main()
