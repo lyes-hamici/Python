@@ -76,7 +76,6 @@ class View:
                             self.is_it_first_click = False
                         # Temporary solution to resolve the inversion of the x and y
                         self.controller.game_logic(y, x)
-                        self.controller.show_cases(y, x)
                         print(" game board ")
                         for i in self.game.board:
                             print(i)
