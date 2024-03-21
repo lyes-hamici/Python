@@ -39,12 +39,14 @@ class View:
                 self.menu.main_menu()
             elif self.current_state == View.GAME:
                 if self.controller.difficulty != None and self.is_matrix_created == False:
+                    self.resize_window(self.controller.difficulty)
                     self.is_matrix_created = True
                     #self.controller.difficulty = self.difficulty
                     self.controller.create_game_board()
                     self.game.board = self.controller.get_apparent_matrix()
-                self.handle_game_events()
                 self.game.draw()
+                self.handle_game_events()
+                
             elif self.current_state == View.END_MENU:
                 self.handle_end_menu_events()
             
@@ -63,20 +65,25 @@ class View:
                     exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
+                    is_in_grid = self.is_in_grid(x, y)
                     x = (x - Game.margin[0]) // self.game.TILE_SIZE
                     y = (y - Game.margin[1]) // self.game.TILE_SIZE
-                    if self.is_it_first_click == True:
-                        self.controller.set_mines()
-                        self.controller.set_numbers()
-                        self.is_it_first_click = False
-                    # Temporary solution to resolve the inversion of the x and y
-                    self.controller.game_logic(y, x)
-                    self.controller.show_cases(y, x)
-                    self.game.board = self.controller.get_apparent_matrix()
-                    print(" game board ")
-                    print(self.controller.get_vis())
-                    for i in self.game.board:
-                        print(i)
+                    
+                    if event.button == 1 and is_in_grid:
+                        if self.is_it_first_click == True:
+                            self.controller.set_mines()
+                            self.controller.set_numbers()
+                            self.is_it_first_click = False
+                        # Temporary solution to resolve the inversion of the x and y
+                        self.controller.game_logic(y, x)
+                        self.controller.show_cases(y, x)
+                        print(" game board ")
+                        for i in self.game.board:
+                            print(i)
+                    elif event.button == 3 and is_in_grid:
+                        print("right click",x,y)
+                        self.controller.on_right_click(y, x)
+                self.game.board = self.controller.get_apparent_matrix()
                     
     def handle_start_menu_events(self):
         '''Handles the start menu events'''
@@ -102,7 +109,24 @@ class View:
         '''Gets the difficulty of the game'''
         return self.menu.get_difficulty()
     
+    def is_in_grid(self, x, y):
+        if x >= Game.margin[0] and x <= Game.margin[0] + Game.rows * self.game.TILE_SIZE:
+            if y >= Game.margin[1] and y <= Game.margin[1] + Game.cols * self.game.TILE_SIZE:
+                return True
+        return False
     
+    def resize_window(self, difficulty):
+        '''Resizes the window based on the difficulty'''
+        if difficulty == 'easy':
+            self.WIDTH = 500
+            self.HEIGHT = 500
+        elif difficulty == 'medium':
+            self.WIDTH = 700
+            self.HEIGHT = 700
+        elif difficulty == 'hard':
+            self.WIDTH = 1000
+            self.HEIGHT = 1000
+        self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         
         
 # Debug purposes
