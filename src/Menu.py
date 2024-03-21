@@ -79,7 +79,7 @@ class Menu:
 
                 #if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    self.enter_main_name()
+                    self.active_go_to_user_menu()
 
                 
                     
@@ -101,8 +101,8 @@ class Menu:
     def running_main_menu(self):
         self.main_running = True
 
-    def active_go_to_main(self):
-        self.go_to_main = True
+    def active_go_to_user_menu(self):
+        self.go_to_enter_user_name = True
 
     def get_running_main_menu(self):
         return self.main_running
