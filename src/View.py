@@ -39,6 +39,7 @@ class View:
                 self.menu.main_menu()
             elif self.current_state == View.GAME:
                 if self.controller.difficulty != None and self.is_matrix_created == False:
+                    self.resize_window(self.controller.difficulty)
                     self.is_matrix_created = True
                     #self.controller.difficulty = self.difficulty
                     self.controller.create_game_board()
@@ -84,7 +85,6 @@ class View:
                         self.controller.on_right_click(y, x)
                 self.game.board = self.controller.get_apparent_matrix()
                     
-                    
     def handle_start_menu_events(self):
         '''Handles the start menu events'''
         for event in pygame.event.get():
@@ -114,6 +114,19 @@ class View:
             if y >= Game.margin[1] and y <= Game.margin[1] + Game.cols * self.game.TILE_SIZE:
                 return True
         return False
+    
+    def resize_window(self, difficulty):
+        '''Resizes the window based on the difficulty'''
+        if difficulty == 'easy':
+            self.WIDTH = 500
+            self.HEIGHT = 500
+        elif difficulty == 'medium':
+            self.WIDTH = 700
+            self.HEIGHT = 700
+        elif difficulty == 'hard':
+            self.WIDTH = 1000
+            self.HEIGHT = 1000
+        self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         
         
 # Debug purposes
