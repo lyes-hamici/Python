@@ -38,7 +38,8 @@ class View:
         while True:
             # Test purposes
             count += 0.1
-            time += 1
+            print(self.controller.update_timer())
+            time = self.controller.update_timer()
             self.game.flag_count = int(count)
             if len(str(time)) == 1:
                 self.game.timer = '000' + str(time)
@@ -90,6 +91,7 @@ class View:
                         if self.is_it_first_click == True:
                             self.controller.set_mines()
                             self.controller.set_numbers()
+                            self.controller.start_timer()
                             self.is_it_first_click = False
                         # Temporary solution to resolve the inversion of the x and y
                         self.controller.game_logic(y, x)
