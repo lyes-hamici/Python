@@ -63,6 +63,10 @@ class Controller:
     def on_right_click(self, x, y):
         '''Handles the right click'''
         return self.model.action_right_click(x, y)
+    
+    def reset_game(self):
+        '''Resets the game'''
+        pass
         
 if __name__ == "__main__":
     controller = Controller()
