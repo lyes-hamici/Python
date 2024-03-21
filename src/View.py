@@ -120,8 +120,8 @@ class View:
             self.WIDTH = 500
             self.HEIGHT = 500
         elif difficulty == 'medium':
-            self.WIDTH = 700
-            self.HEIGHT = 700
+            self.WIDTH = 750
+            self.HEIGHT = 750
         elif difficulty == 'hard':
             self.WIDTH = 1000
             self.HEIGHT = 1000
