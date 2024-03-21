@@ -12,6 +12,7 @@ class Game:
         self.TILE_SIZE = 30
         
         self.flag_count = 0
+        self.timer = '0000'
         
     #Loading assets for the game itself (maybe put on a config file)
         # Tiles assets   
@@ -41,7 +42,7 @@ class Game:
         elif self.view.difficulty == 'hard':
             self.calculate_margin(30, 40)
             self.draw_grid(30, 40)
-        self.draw_timer()
+        self.draw_timer(self.timer)
         self.draw_flag_counter(self.flag_count)
 
     def calculate_margin(self,rows, cols):
@@ -93,16 +94,17 @@ class Game:
                 elif self.board[y][x] == 8:
                     self.window.blit(self.tile_numbers[7], (start_x + x_increment, start_y + y_increment))
                     
-    def draw_timer(self):
+    def draw_timer(self, timer):
+        parsed_timer = [int(i) for i in str(timer)]
         '''Draws the timer on the screen'''
         timer_x = self.view.WIDTH // 2 - self.digital_numbers[0].get_width() // 2 * 5
         timer_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
         
-        self.window.blit(self.digital_numbers[5], (timer_x, timer_y))
-        self.window.blit(self.digital_numbers[0], (timer_x + 22, timer_y))
+        self.window.blit(self.digital_numbers[0], (timer_x, timer_y))
+        self.window.blit(self.digital_numbers[1], (timer_x + 22, timer_y))
         self.window.blit(self.digital_hyphen, (timer_x + 47, timer_y))
-        self.window.blit(self.digital_numbers[6], (timer_x + 72, timer_y))
-        self.window.blit(self.digital_numbers[0], (timer_x + 94, timer_y))
+        self.window.blit(self.digital_numbers[2], (timer_x + 72, timer_y))
+        self.window.blit(self.digital_numbers[3], (timer_x + 94, timer_y))
         
         self.draw_text("Time", timer_x + 40, timer_y + 35, 20)
     

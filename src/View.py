@@ -37,6 +37,7 @@ class View:
         while True:
             count += 0.1
             self.game.flag_count = int(count)
+            self.game.timer = str(int(count))
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
