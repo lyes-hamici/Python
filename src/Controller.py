@@ -46,7 +46,7 @@ class Controller:
         '''Sets the number of mines'''
         self.model.set_numbers()
     
-    def set_mines(self):
+    def set_mines(self, x, y):
         '''Sets the mines'''
         if self.difficulty == 'easy':
             self.model.set_mines_number(10)
@@ -54,7 +54,7 @@ class Controller:
             self.model.set_mines_number(40)
         elif self.difficulty == 'hard':
             self.model.set_mines_number(99)
-        self.model.set_mines()
+        self.model.set_mines(x, y)
     
     def on_right_click(self, x, y):
         '''Handles the right click'''

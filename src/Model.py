@@ -81,25 +81,39 @@ class Model:
 
     def create_matrix(self, value_x, value_y):
 
-        self.matrix_size = value_x * value_y
-        self.matrix_variable = [[0 for i in range(value_y)] for j in range(value_x)]
-        self.apparent_matrix = [[0 for i in range(value_y)] for j in range(value_x)]
+        self.value_x = value_x
+        self.value_y = value_y
+        self.matrix_size = self.value_x * self.value_y
+        self.matrix_variable = [[0 for i in range(self.value_y)] for j in range(self.value_x)]
+        self.apparent_matrix = [[0 for i in range(self.value_y)] for j in range(self.value_x)]
     #create the matrix with the size of the game
 
 
-    def set_mines(self):
+    def set_mines(self, y, x):
         mines = 0
+        print ("x,y", x, y)
+        safe_zone =[]
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                if x + i >= 0 and x + i < self.value_x and y + j >= 0 and y + j < self.value_y:
+                    safe_zone.append([x+i, y+j])
+        print ("safe_zone", safe_zone)
         while mines < self.mines_number:
-            x = randint(0, self.matrix_size - 1)
-            y = randint(0, self.matrix_size - 1)
-            if self.matrix_variable[x][y] != -1:
-                self.matrix_variable[x][y] = -1
-                mines += 1
+            print ("mines", mines)
+            print ("mines_number", self.mines_number)
+            print ("matrix size", self.matrix_size)
+            x_mines = randint(0, self.value_x - 1)
+            y_mines = randint(0, self.value_y - 1)
+            print ("x_mines, y_mines", x_mines, y_mines)
+            if self.matrix_variable[x_mines][y_mines] != -1:
+                if [x_mines, y_mines] not in safe_zone:
+                    self.matrix_variable[x_mines][y_mines] = -1
+                    mines += 1
     #set the mines in the matrix
 
     def set_numbers(self):
-        for i in range(self.matrix_size):
-            for j in range(self.matrix_size):
+        for i in range(self.value_x):
+            for j in range(self.value_y):
                 if self.matrix_variable[i][j] != -1:
                     self.matrix_variable[i][j] = self.count_mines(i, j)
     #set the number of mines around a cell
@@ -108,7 +122,7 @@ class Model:
         count = 0
         for i in range(-1, 2):
             for j in range(-1, 2):
-                if x + i >= 0 and x + i < self.matrix_size and y + j >= 0 and y + j < self.matrix_size:
+                if x + i >= 0 and x + i < self.value_x and y + j >= 0 and y + j < self.value_y:
                     if self.matrix_variable[x + i][y + j] == -1:
                         count += 1
         return count
@@ -135,14 +149,14 @@ class Model:
             return "Continue", None
         
     def check_win(self):
-        if len(self.vis) == self.matrix_size * self.matrix_size - self.mines_number:
+        if len(self.vis) == self.matrix_size - self.mines_number:
             return True
         else:
             return False
         
     def check_lose(self):
-        for i in range(self.matrix_size):
-            for j in range(self.matrix_size):
+        for i in range(self.value_x):
+            for j in range(self.value_y):
                 if self.apparent_matrix[i][j] == 13:
                     return True
         return False
@@ -169,8 +183,8 @@ class Model:
         
 
     def show_mines(self):
-        for i in range(self.matrix_size):
-            for j in range(self.matrix_size):
+        for i in range(self.value_x):
+            for j in range(self.value_y):
                 if self.matrix_variable[i][j] == -1 and not [i,j] in self.vis:
                     self.apparent_matrix[i][j] = -1
     #show the mines when the game is over
@@ -184,19 +198,19 @@ class Model:
                 #show the empty case as empty case
                 if x > 0:
                     self.show_neighbours(x-1, y)
-                if x < self.matrix_size - 1:
+                if x < self.value_x - 1:
                     self.show_neighbours(x+1, y)
                 if y > 0:
                     self.show_neighbours(x, y-1)
-                if y < self.matrix_size - 1:
+                if y < self.value_y - 1:
                     self.show_neighbours(x, y+1)
                 if x > 0 and y > 0:
                     self.show_neighbours(x-1, y-1)
-                if x > 0 and y < self.matrix_size - 1:
+                if x > 0 and y < self.value_y - 1:
                     self.show_neighbours(x-1, y+1)
-                if x < self.matrix_size - 1 and y > 0:
+                if x < self.value_x - 1 and y > 0:
                     self.show_neighbours(x+1, y-1)
-                if x < self.matrix_size - 1 and y < self.matrix_size - 1:
+                if x < self.value_x - 1 and y < self.value_y - 1:
                     self.show_neighbours(x+1, y+1)
                 #show the neighbours of an empty case
             if self.matrix_variable[x][y] != 0 and self.matrix_variable[x][y] != -1:

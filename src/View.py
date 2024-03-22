@@ -88,7 +88,7 @@ class View:
                     
                     if event.button == 1 and is_in_grid:
                         if self.is_it_first_click == True:
-                            self.controller.set_mines()
+                            self.controller.set_mines(x, y)
                             self.controller.set_numbers()
                             self.controller.start_timer()
                             self.is_it_first_click = False
