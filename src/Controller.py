@@ -5,7 +5,11 @@ class Controller:
     def __init__(self) -> None:
         self.model = Model()
         self.view = View(self)     
-        self.difficulty = None  
+        self.difficulty = None
+
+    def get_mines_number(self):
+        '''Gets the number of mines'''
+        return self.model.get_mines_number()
 
     def get_vis(self):
         return self.model.vis
@@ -37,10 +41,6 @@ class Controller:
     def game_logic(self, x, y):
         '''Handles the game logic'''
         return self.model.game_logic(x, y)
-    
-    def show_cases(self, x, y):
-        '''Shows the cases'''
-        return self.model.show_cases(x, y)
 
     def set_numbers(self):
         '''Sets the number of mines'''
@@ -55,15 +55,23 @@ class Controller:
         elif self.difficulty == 'hard':
             self.model.set_mines_number(99)
         self.model.set_mines()
-
-    def check_win(self):
-        '''Checks if the player has won'''
-        return self.model.check_win()
     
     def on_right_click(self, x, y):
         '''Handles the right click'''
         return self.model.action_right_click(x, y)
-        
+    
+    def start_timer(self):
+        '''Starts the timer'''
+        if self.view.is_it_first_click:
+            return self.model.start_timer()
+        else:
+            pass
+    
+    def update_timer(self):
+        '''Updates the timer'''
+        return self.model.update_timer()
+    
+                
 if __name__ == "__main__":
     controller = Controller()
     controller.main()

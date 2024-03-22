@@ -24,6 +24,7 @@ class View:
             
             # Initialize the pygame & setup the window
             pygame.init()
+            pygame.font.init()
             self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
             pygame.display.set_caption("MineSweeper")
             
@@ -40,7 +41,24 @@ class View:
             
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
+        count = 0
+        time = 0
         while True:
+            # Test purposes
+            count = self.controller.get_mines_number()
+            print(self.controller.update_timer())
+            time = self.controller.update_timer()
+            self.game.flag_count = int(count)
+            if len(str(time)) == 1:
+                self.game.timer = '000' + str(time)
+            elif len(str(time)) == 2:
+                self.game.timer = '00' + str(time)
+            elif len(str(time)) == 3:
+                self.game.timer = '0' + str(time)
+            elif len(str(time)) == 4:
+                self.game.timer = str(time)
+            # End of test purposes
+            
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
                 self.handle_start_menu_events()
@@ -82,10 +100,10 @@ class View:
                         if self.is_it_first_click == True:
                             self.controller.set_mines()
                             self.controller.set_numbers()
+                            self.controller.start_timer()
                             self.is_it_first_click = False
                         # Temporary solution to resolve the inversion of the x and y
                         self.controller.game_logic(y, x)
-                        self.controller.show_cases(y, x)
                         print(" game board ")
                         for i in self.game.board:
                             print(i)
@@ -130,8 +148,8 @@ class View:
             self.WIDTH = 500
             self.HEIGHT = 500
         elif difficulty == 'medium':
-            self.WIDTH = 700
-            self.HEIGHT = 700
+            self.WIDTH = 750
+            self.HEIGHT = 750
         elif difficulty == 'hard':
             self.WIDTH = 1000
             self.HEIGHT = 1000
