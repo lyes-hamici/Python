@@ -72,12 +72,13 @@ class View:
                     self.controller.create_game_board()
                     self.game.board = self.controller.get_apparent_matrix()
                
-                self.game.draw()
-                self.handle_game_events()
                 if self.game_state == True and self.end_click == True:
-                    self.menu.win()
+                    self.win.win()
                 elif self.game_state == False and self.end_click == True:
-                    self.menu.loose()
+                    self.loose.loose()
+                else:
+                    self.game.draw()
+                    self.handle_game_events()
                 # self.game.draw()
                 # self.handle_game_events()
             
