@@ -1,6 +1,7 @@
 import pygame
 from Game import Game
 from Menu import Menu
+import time
 # from Controller import Controller
 
 class View:
@@ -18,6 +19,7 @@ class View:
             self.is_matrix_created = False
             self.is_it_first_click = True
             self.game_state = None
+            self.end_click = False
             
             # Initialize the pygame & setup the window
             pygame.init()
@@ -35,21 +37,20 @@ class View:
     def main_loop(self):
         '''Main loop of the game, where the game is played and the events are handled'''
         count = 0
-        time = 0
+        timer = 0
         while True:
             # Test purposes
             count = self.controller.get_mines_number()
-            print(self.controller.update_timer())
-            time = self.controller.update_timer()
+            timer = self.controller.update_timer()
             self.game.flag_count = int(count)
-            if len(str(time)) == 1:
-                self.game.timer = '000' + str(time)
-            elif len(str(time)) == 2:
-                self.game.timer = '00' + str(time)
-            elif len(str(time)) == 3:
-                self.game.timer = '0' + str(time)
-            elif len(str(time)) == 4:
-                self.game.timer = str(time)
+            if len(str(timer)) == 1:
+                self.game.timer = '000' + str(timer)
+            elif len(str(timer)) == 2:
+                self.game.timer = '00' + str(timer)
+            elif len(str(timer)) == 3:
+                self.game.timer = '0' + str(timer)
+            elif len(str(timer)) == 4:
+                self.game.timer = str(timer)
             # End of test purposes
             
             # Conditions to change the state of the game
@@ -60,17 +61,17 @@ class View:
                 if self.controller.difficulty != None and self.is_matrix_created == False:
                     self.resize_window(self.controller.difficulty)
                     self.is_matrix_created = True
-                    #self.controller.difficulty = self.difficulty
                     self.controller.create_game_board()
                     self.game.board = self.controller.get_apparent_matrix()
-                if self.game_state == None:
-                    self.game.draw()
-                    self.handle_game_events()
-                elif self.game_state == True:
-                    pass
-                elif self.game_state == False:
-                    pass
-                
+               
+                self.game.draw()
+                self.handle_game_events()
+                if self.game_state == True and self.end_click == True:
+                    self.menu.win()
+                elif self.game_state == False and self.end_click == True:
+                    self.menu.loose()
+                # self.game.draw()
+                # self.handle_game_events()
             
             # Put on screen the drawing     
             pygame.display.update()
@@ -91,7 +92,7 @@ class View:
                     x = (x - Game.margin[0]) // self.game.TILE_SIZE
                     y = (y - Game.margin[1]) // self.game.TILE_SIZE
                     
-                    if event.button == 1 and is_in_grid:
+                    if event.button == 1 and is_in_grid and self.game_state == None:
                         if self.is_it_first_click == True:
                             self.controller.set_mines()
                             self.controller.set_numbers()
@@ -102,9 +103,11 @@ class View:
                         print(" game board ")
                         for i in self.game.board:
                             print(i)
-                    elif event.button == 3 and is_in_grid:
+                    elif event.button == 3 and is_in_grid and self.game_state == None:
                         print("right click",x,y)
                         self.controller.on_right_click(y, x)
+                    elif event.button == 1 and not self.end_click :
+                        self.end_click = True
                 self.game.board = self.controller.get_apparent_matrix()
                     
     def handle_start_menu_events(self):

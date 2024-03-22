@@ -7,6 +7,7 @@ class Model:
     def __init__(self) -> None:
         self.matrix_variable = []
         self.apparent_matrix = []
+        self.start_mines = 0
         self.mines_number = 0
         self.matrix_size = 0
         self.flagged_positions = ()
@@ -29,7 +30,8 @@ class Model:
         upper_mines_number = int(mines_number + mines_number * 0.2)
         
         print(f'lower_mines_number: {lower_mines_number}, upper_mines_number: {upper_mines_number}')
-        self.mines_number = randint(lower_mines_number, upper_mines_number)
+        self.start_mines = randint(lower_mines_number, upper_mines_number)
+        self.mines_number = self.start_mines
         print(f'mines_number: {self.mines_number}')
     
     def set_matrix_size(self, matrix_size):
@@ -134,7 +136,8 @@ class Model:
             return None
         
     def check_win(self):
-        if len(self.vis) == self.matrix_size * self.matrix_size - self.mines_number:
+        if len(self.vis) == self.matrix_size * self.matrix_size - self.start_mines:
+            print("Win verifié")
             return True
         else:
             return False
