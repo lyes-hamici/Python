@@ -23,6 +23,7 @@ class Game:
         self.bomb_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/bomb_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
         self.clicked_bomb_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/clicked_bomb_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
         self.interrogant_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/interrogant_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
+        self.repeat_button = pygame.transform.scale(pygame.image.load("assets/images/button/repeat_button.png"),(self.TILE_SIZE*1.5, self.TILE_SIZE*1.5))
         # Timer assets
         self.digital_numbers = self.load_digital_numbers()
         self.digital_hyphen = pygame.transform.scale(pygame.image.load("assets/images/digits/-.png"), (20, 30))
@@ -44,6 +45,7 @@ class Game:
             self.draw_grid(30, 40)
         self.draw_timer(self.timer)
         self.draw_flag_counter(self.flag_count)
+        self.draw_reset_button()
 
     def calculate_margin(self,rows, cols):
         '''Sets the margin of the game'''
@@ -114,7 +116,7 @@ class Game:
         flag_counter_x = (self.view.WIDTH - Game.margin[0] ) - self.digital_numbers[0].get_width() * 2
         flag_counter_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
 
-        self.window.blit(self.flag_tile, (flag_counter_x + 68, flag_counter_y))
+        self.window.blit(self.flag_tile, (flag_counter_x + 68, flag_counter_y))        
         self.draw_text("Flags", flag_counter_x + 20, flag_counter_y + 35, 20)
         if len(parsed_digit) == 1:
             self.window.blit(self.digital_numbers[0], (flag_counter_x, flag_counter_y))
@@ -138,8 +140,20 @@ class Game:
         font = pygame.font.Font(None, size)
         text = font.render(text, True, (0,0,0))
         self.window.blit(text, (x, y))
-        
-        
+
+    def draw_reset_button(self):
+        counter_x = Game.margin[0]
+        counter_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
+
+        self.window.blit(self.repeat_button, (counter_x, counter_y))
+        return pygame.Rect(counter_x, counter_y, self.repeat_button.get_width(), self.repeat_button.get_height())
+
+    def handle_click(self, pos):
+        button_rect = self.draw_reset_button()
+        if button_rect.collidepoint(pos):
+            print("Reset") #Change for reset the matrix
+                    
+
     def load_tile_numbers(self):
         '''Loads the tile numbers from the assets folder and returns them as a list of images'''
         tile_numbers = []
