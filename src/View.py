@@ -148,8 +148,8 @@ class View:
         return self.menu.get_difficulty()
     
     def is_in_grid(self, x, y):
-        if x >= Game.margin[0] and x <= Game.margin[0] + Game.rows * self.game.TILE_SIZE:
-            if y >= Game.margin[1] and y <= Game.margin[1] + Game.cols * self.game.TILE_SIZE:
+        if x >= Game.margin[0] and x <= Game.margin[0] + Game.cols * self.game.TILE_SIZE:
+            if y >= Game.margin[1] and y <= Game.margin[1] + Game.rows * self.game.TILE_SIZE:
                 return True
         return False
     
@@ -163,7 +163,7 @@ class View:
             self.HEIGHT = 750
         elif difficulty == 'hard':
             self.WIDTH = 1600
-            self.HEIGHT = 1000
+            self.HEIGHT = 750
         self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         
         
