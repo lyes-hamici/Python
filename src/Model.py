@@ -122,7 +122,7 @@ class Model:
                 self.show_mines()
                 self.timer_running = False
                 print ("game over")
-                return "Game Over", False
+                return False
         else:
             self.apparent_matrix[x][y] = self.matrix_variable[x][y]
             if [x,y] not in self.vis:
@@ -130,8 +130,8 @@ class Model:
             if self.check_win():
                 self.show_mines()
                 print ("you win")
-                return "You win", True
-            return "Continue", None
+                return True
+            return None
         
     def check_win(self):
         if len(self.vis) == self.matrix_size * self.matrix_size - self.mines_number:
