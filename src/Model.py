@@ -205,9 +205,14 @@ class Model:
     #=================FLAG AND QUESTION MARKS=================#
     def action_right_click(self, x, y):
         if self.apparent_matrix[x][y] == 0 and [x,y] not in self.vis:
-            self.apparent_matrix[x][y] = 11
+            if self.mines_number > 0:
+                self.mines_number -= 1
+                self.apparent_matrix[x][y] = 11
+            else:
+                self.apparent_matrix[x][y] = 12
         elif self.apparent_matrix[x][y] == 11:
             self.apparent_matrix[x][y] = 12
+            self.mines_number += 1
         elif self.apparent_matrix[x][y] == 12:
             self.apparent_matrix[x][y] = 0
 
