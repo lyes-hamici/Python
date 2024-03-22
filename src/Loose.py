@@ -72,6 +72,7 @@ class Loose:
 
                 if MENU_BUTTON.checkForInput(MENU_MOUSE_POS):
                     self.stop_running_loose_menu()
+                    self.view.current_state = 0
 
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
