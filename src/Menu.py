@@ -29,6 +29,8 @@ class Menu:
 
         self.difficulty = ""
 
+        self.go_to_enter_user_name = False
+
 
 
     def get_font(self,size): 
@@ -37,15 +39,14 @@ class Menu:
 
 
     def main_menu(self):
-        self.run = False
-        pygame.display.set_caption("Mines Weeper")
+        if self.go_to_enter_user_name == False:
+            pygame.display.set_caption("Mines Weeper")
 
-        musique = pygame.mixer.music.load("assets\\music\\Mission Impossible Theme (Full Theme).mp3")
-        mixer.music.set_volume(0.1)
-        mixer.music.play(-1)
+            musique = pygame.mixer.music.load("assets\\music\\Mission Impossible Theme (Full Theme).mp3")
+            mixer.music.set_volume(0.1)
+            mixer.music.play(-1)
 
-        self.running = True
-        while self.running:
+            self.running = True
             self.SCREEN.blit(self.BG, (0, 0))
 
             MENU_MOUSE_POS = pygame.mouse.get_pos()
@@ -78,10 +79,8 @@ class Menu:
 
                     #if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.enter_user_name()
-
-                    
-                        
+                        self.active_go_to_user_menu()
+                        self.view.user_menu.enter_user_name()
 
                     if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
 
@@ -89,249 +88,26 @@ class Menu:
 
                         sys.exit()
 
+                pygame.display.update()
 
+
+        else:
+            self.view.user_menu.enter_user_name()
             pygame.display.update()
 
 
 
-
-    def enter_user_name(self):
-        message = self.police.render("What is your name, agent?",True,"white")
-        clock = pygame.time.Clock() 
-        self.run = True
-        input_rect = pygame.Rect(200, 180, 140, 38) 
-  
-
-        color_passive = pygame.Color('grey') 
-        color = color_passive 
-        base_font = self.get_font(30) 
-        self.user_text = '' 
-        self.running = False
-        while self.run:
-            self.SCREEN.blit(self.BG,(0,0))
-            self.SCREEN.blit(message,(115,100))
-            MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-
-            CONTINUE_BUTTON = Button(image=self.play_button, pos=(250, 280), 
-                                text_input="Continue", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-            
-            
-            GO_BACK_BUTTON = Button(image=self.quit_button, pos=(250,400), 
-                                text_input="Go Back", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-
-
-            for button in [CONTINUE_BUTTON,GO_BACK_BUTTON]:
-
-                button.changeColor(MENU_MOUSE_POS)
-
-                button.update(self.SCREEN)
-
-            
-            for event in pygame.event.get():
-
-                if event.type == pygame.QUIT:
-
-                    pygame.quit()
-
-                    sys.exit()
-
-        
-                if event.type == pygame.KEYDOWN: 
-        
-                    # Check for backspace 
-                    if event.key == pygame.K_BACKSPACE: 
-
-                        self.user_text = self.user_text[:-1] 
-                    else: 
-                        self.user_text += event.unicode
-
-
-                if event.type == pygame.MOUSEBUTTONDOWN: 
-                    if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        print(self.user_text) ### Self.run = false & current state = game
-                        self.run = False
-                        mixer.music.stop()
-                        self.choose_difficulty()
-
-                    if GO_BACK_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.main_menu()
-
-            pygame.draw.rect(self.SCREEN, color, input_rect)
-            text_surface = base_font.render(self.user_text, True, (255, 255, 255)) 
-      
-            self.SCREEN.blit(text_surface, (input_rect.x+5, input_rect.y+5)) 
-            
-            input_rect.w = max(100, text_surface.get_width()+10) 
-            
-            pygame.display.flip() 
-            
-            clock.tick(60) 
-
-            pygame.display.update()
-
-
-
-
-
-
-    def win(self):
-        pygame.display.set_caption("Loose Menu")
-        pygame.display.update()
-        win = self.police_small.render(f"Congratulations,you have defused all the bombs.",True,"white")
-        while True:
-            self.SCREEN.blit(self.BG, (0, 0))
-            self.SCREEN.blit(win, (50, 100))
-            
-            MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-
-           
-            MENU_BUTTON = Button(image=self.play_button, pos=(250, 280), 
-                                text_input="MENU", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-            
-            QUIT_BUTTON = Button(image=self.quit_button, pos=(250, 400), 
-                                text_input="QUIT", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-
-
-            for button in [MENU_BUTTON,QUIT_BUTTON]:
-
-                button.changeColor(MENU_MOUSE_POS)
-
-                button.update(self.SCREEN)
-
-            
-            for event in pygame.event.get():
-
-                if event.type == pygame.QUIT:
-
-                    pygame.quit()
-
-                    sys.exit()
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-
-                    if MENU_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.main_menu()
-   
-                    if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        pygame.quit()
-
-                        sys.exit()
-                            
-            pygame.display.update()
-
-
-
-    def loose(self):
-        pygame.display.set_caption("Loose Menu")
-        pygame.display.update()
-        loose = self.police_big.render(f"You Die !",True,"white")
-        while True:
-            self.SCREEN.blit(self.BG, (0, 0))
-            self.SCREEN.blit(loose, (180, 100))
-            
-            MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-
-           
-            MENU_BUTTON = Button(image=self.play_button, pos=(250, 280), 
-                                text_input="MENU", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-            
-            QUIT_BUTTON = Button(image=self.quit_button, pos=(250, 400), 
-                                text_input="QUIT", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-
-
-            for button in [MENU_BUTTON,QUIT_BUTTON]:
-
-                button.changeColor(MENU_MOUSE_POS)
-
-                button.update(self.SCREEN)
-
-            
-            for event in pygame.event.get():
-
-                if event.type == pygame.QUIT:
-
-                    pygame.quit()
-
-                    sys.exit()
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-
-                    if MENU_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.main_menu()
-   
-                    if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        pygame.quit()
-
-                        sys.exit()
-                            
-            pygame.display.update()
-
-
-
-    def choose_difficulty(self):
-        difficulty = self.police_big.render(f"Choose a difficulty",True,"white")
-        self.current_run = True
-        while self.current_run:
-            self.SCREEN.blit(self.BG, (0, 0))
-            self.SCREEN.blit(difficulty, (100, 50))
-            
-            MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-
-           
-            EASY_BUTTON = Button(image=self.play_button, pos=(250, 180), 
-                                text_input="Easy", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-            
-            MEDIUM_BUTTON = Button(image=self.quit_button, pos=(250, 300), 
-                                text_input="Medium", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-            
-            HARD_BUTTON = Button(image=self.quit_button, pos=(250, 420), 
-                                text_input="Hard", font=self.get_font(50), base_color="#d7fcd4", hovering_color="White")
-
-
-            for button in [EASY_BUTTON,MEDIUM_BUTTON,HARD_BUTTON]:
-
-                button.changeColor(MENU_MOUSE_POS)
-
-                button.update(self.SCREEN)
-
-            
-            for event in pygame.event.get():
-
-                if event.type == pygame.QUIT:
-
-                    pygame.quit()
-
-                    sys.exit()
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-
-                    if EASY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.view.set_current_state(self.view.GAME)
-                        self.current_run = False
-                        self.difficulty = "easy"
-                        self.view.set_difficulty(self.difficulty)
-                        
-   
-                    if MEDIUM_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.view.set_current_state(self.view.GAME)
-                        self.current_run = False
-                        self.difficulty = "medium"
-                        self.view.set_difficulty(self.difficulty)
-                        
-
-                    if HARD_BUTTON.checkForInput(MENU_MOUSE_POS):
-                        self.view.set_current_state(self.view.GAME)
-                        self.current_run = False
-                        self.difficulty = "hard"
-                        self.view.set_difficulty(self.difficulty)
-                        
-                            
-            pygame.display.update()
-
-
-    def get_difficulty(self):
-        return self.difficulty
+    def stop_running_main_menu(self):
+        self.main_running = False
+
+    def running_main_menu(self):
+        self.main_running = True
+
+    def active_go_to_user_menu(self):
+        self.go_to_enter_user_name = True
+
+    def get_running_main_menu(self):
+        return self.main_running
+    
+    def get_go_to_user_menu(self):
+        return self.go_to_enter_user_name
