@@ -37,7 +37,7 @@ class View:
         time = 0
         while True:
             # Test purposes
-            count += 0.1
+            count = self.controller.get_mines_number()
             print(self.controller.update_timer())
             time = self.controller.update_timer()
             self.game.flag_count = int(count)
