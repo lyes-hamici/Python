@@ -32,11 +32,11 @@ class Controller:
     def create_game_board(self):
         '''Creates the game board based on the difficulty'''
         if self.difficulty == 'easy':
-            self.model.create_matrix(10)
+            self.model.create_matrix(10,10)
         elif self.difficulty == 'medium':
-            self.model.create_matrix(20)
+            self.model.create_matrix(20,20)
         elif self.difficulty == 'hard':
-            self.model.create_matrix(30)
+            self.model.create_matrix(50, 20)
 
     def game_logic(self, x, y):
         '''Handles the game logic'''

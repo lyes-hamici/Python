@@ -38,7 +38,6 @@ class View:
         while True:
             # Test purposes
             count = self.controller.get_mines_number()
-            print(self.controller.update_timer())
             time = self.controller.update_timer()
             self.game.flag_count = int(count)
             if len(str(time)) == 1:
@@ -142,7 +141,7 @@ class View:
             self.WIDTH = 750
             self.HEIGHT = 750
         elif difficulty == 'hard':
-            self.WIDTH = 1000
+            self.WIDTH = 1600
             self.HEIGHT = 1000
         self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         

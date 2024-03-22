@@ -79,10 +79,11 @@ class Model:
     
     #=================CREATING GAME OBJECTS=================#
 
-    def create_matrix(self, matrix_size):
-        self.matrix_size = matrix_size
-        self.matrix_variable = [[0 for i in range(matrix_size)] for j in range(matrix_size)]
-        self.apparent_matrix = [[0 for i in range(matrix_size)] for j in range(matrix_size)]
+    def create_matrix(self, value_x, value_y):
+
+        self.matrix_size = value_x * value_y
+        self.matrix_variable = [[0 for i in range(value_y)] for j in range(value_x)]
+        self.apparent_matrix = [[0 for i in range(value_y)] for j in range(value_x)]
     #create the matrix with the size of the game
 
 

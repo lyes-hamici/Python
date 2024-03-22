@@ -40,8 +40,8 @@ class Game:
             self.calculate_margin(20, 20)
             self.draw_grid(20, 20)
         elif self.view.difficulty == 'hard':
-            self.calculate_margin(30, 40)
-            self.draw_grid(30, 40)
+            self.calculate_margin(50, 20)
+            self.draw_grid(50, 20)
         self.draw_timer(self.timer)
         self.draw_flag_counter(self.flag_count)
 
