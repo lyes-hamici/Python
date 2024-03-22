@@ -1,4 +1,7 @@
 from random import randint
+from time import sleep
+from time import time
+from random import uniform
 
 class Model:
     def __init__(self) -> None:
@@ -10,6 +13,9 @@ class Model:
         self.interrogation_positions = ()
         self.clicked_positions = ()
         self.vis = []
+        self.timer_running = False
+        self.timer = 0
+        self.time_start = 0
 
     #=================SETTERS AND GETTERS=================#
         #=================SETTERS=================#
@@ -18,7 +24,13 @@ class Model:
         self.y = y
 
     def set_mines_number(self, mines_number):
-        self.mines_number = mines_number
+        '''Sets the number of mines to a value that is 20% more or less than mines_number'''
+        lower_mines_number = int(mines_number - mines_number * 0.2)
+        upper_mines_number = int(mines_number + mines_number * 0.2)
+        
+        print(f'lower_mines_number: {lower_mines_number}, upper_mines_number: {upper_mines_number}')
+        self.mines_number = randint(lower_mines_number, upper_mines_number)
+        print(f'mines_number: {self.mines_number}')
     
     def set_matrix_size(self, matrix_size):
         self.matrix_size = matrix_size
@@ -104,31 +116,43 @@ class Model:
     #=================GAME LOGIC=================#
 
     def game_logic(self, x, y):
-        if self.matrix_variable[x][y] == -1:
-            self.apparent_matrix[x][y] = -1
-            return "Game Over"
+        if self.matrix_variable[x][y] == 0 or self.matrix_variable[x][y] == -1:
+            self.show_cases(x, y)
+            if self.check_lose():
+                self.show_mines()
+                self.timer_running = False
+                print ("game over")
+                return "Game Over", False
         else:
             self.apparent_matrix[x][y] = self.matrix_variable[x][y]
+            if [x,y] not in self.vis:
+                self.vis.append([x,y])
             if self.check_win():
                 self.show_mines()
-                return "You win"
-            return "Continue"
+                print ("you win")
+                return "You win", True
+            return "Continue", None
         
     def check_win(self):
         if len(self.vis) == self.matrix_size * self.matrix_size - self.mines_number:
             return True
         else:
             return False
+        
+    def check_lose(self):
+        for i in range(self.matrix_size):
+            for j in range(self.matrix_size):
+                if self.apparent_matrix[i][j] == 13:
+                    return True
+        return False
 
         
     #=================DISPLAY CASES=================#
         
     def show_cases(self, x, y):
         if self.matrix_variable[x][y] == -1:
-            self.apparent_matrix[x][y] = -1
-            self.show_mines()
-            self.game_status = "Game Over"
-        #if the case is a mine, the game is over and the mines are shown
+            self.apparent_matrix[x][y] = 13
+            self.vis.append([x,y])
         elif self.matrix_variable[x][y] == 0:
             print ("apparent matrix")
             for i in self.apparent_matrix:
@@ -146,7 +170,7 @@ class Model:
     def show_mines(self):
         for i in range(self.matrix_size):
             for j in range(self.matrix_size):
-                if self.matrix_variable[i][j] == -1:
+                if self.matrix_variable[i][j] == -1 and not [i,j] in self.vis:
                     self.apparent_matrix[i][j] = -1
     #show the mines when the game is over
 
@@ -181,13 +205,32 @@ class Model:
     #=================FLAG AND QUESTION MARKS=================#
     def action_right_click(self, x, y):
         if self.apparent_matrix[x][y] == 0 and [x,y] not in self.vis:
-            self.apparent_matrix[x][y] = 11
+            if self.mines_number > 0:
+                self.mines_number -= 1
+                self.apparent_matrix[x][y] = 11
+            else:
+                self.apparent_matrix[x][y] = 12
         elif self.apparent_matrix[x][y] == 11:
             self.apparent_matrix[x][y] = 12
+            self.mines_number += 1
         elif self.apparent_matrix[x][y] == 12:
-            self.apparent_matrix[x][y] = 0     
+            self.apparent_matrix[x][y] = 0
 
-    
+    #=================TIMER=================#
+    def start_timer(self):
+        if not self.timer_running:
+            self.timer_running = True
+            self.time_start = time()
+
+    def update_timer(self):
+        if self.timer_running:
+            time_end = time()
+            self.timer = round(time_end - self.time_start)
+            minutes = self.timer // 60
+            seconds = self.timer % 60
+            self.timer = f"{minutes:02d}{seconds:02d}"
+        return int(self.timer)
+                 
 #==================================================================================================#
         #=================TESTING=================#
 
