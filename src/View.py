@@ -23,6 +23,7 @@ class View:
             self.is_it_first_click = True
             self.game_state = None
             self.end_click = False
+            self.is_resized = False
             
             # Initialize the pygame & setup the window
             pygame.init()
@@ -73,8 +74,14 @@ class View:
                     self.game.board = self.controller.get_apparent_matrix()
                
                 if self.game_state == True and self.end_click == True:
+                    if not self.is_resized:
+                        self.resize_window("oups")
+                        self.is_resized = True
                     self.win.win()
                 elif self.game_state == False and self.end_click == True:
+                    if not self.is_resized:
+                        self.resize_window("oups")
+                        self.is_resized = True
                     self.loose.loose()
                 else:
                     self.game.draw()
@@ -156,7 +163,8 @@ class View:
     
     def resize_window(self, difficulty):
         '''Resizes the window based on the difficulty'''
-        if difficulty == 'easy':
+          
+        if difficulty == 'easy' or self.current_state == View.START_MENU or (self.game_state == True and self.end_click == True) or (self.game_state == False and self.end_click == True):
             self.WIDTH = 500
             self.HEIGHT = 500
         elif difficulty == 'medium':
