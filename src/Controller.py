@@ -5,7 +5,11 @@ class Controller:
     def __init__(self) -> None:
         self.model = Model()
         self.view = View(self)     
-        self.difficulty = None  
+        self.difficulty = None
+
+    def get_mines_number(self):
+        '''Gets the number of mines'''
+        return self.model.get_mines_number()
 
     def get_vis(self):
         return self.model.vis
