@@ -41,16 +41,16 @@ class Game:
             self.calculate_margin(20, 20)
             self.draw_grid(20, 20)
         elif self.view.difficulty == 'hard':
-            self.calculate_margin(50, 20)
-            self.draw_grid(50, 20)
+            self.calculate_margin(20, 50)
+            self.draw_grid(20, 50)
         self.draw_timer(self.timer)
         self.draw_flag_counter(self.flag_count)
         self.draw_reset_button()
 
     def calculate_margin(self,rows, cols):
         '''Sets the margin of the game'''
-        grid_width = rows * self.TILE_SIZE
-        grid_height = cols * self.TILE_SIZE
+        grid_width = cols * self.TILE_SIZE
+        grid_height = rows * self.TILE_SIZE
         start_x = (self.view.WIDTH - grid_width) // 2
         start_y = (self.view.HEIGHT - grid_height) // 2
         Game.margin = (start_x, start_y)
