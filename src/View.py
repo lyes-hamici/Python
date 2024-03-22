@@ -7,7 +7,6 @@ class View:
     # Static variables to represent the states of the game (frames)
     START_MENU = 0
     GAME = 1
-    END_MENU = 2
     def __init__(self, controller) -> None:
             # Configuration of the window & the game (maybe put on another config file)
             self.WIDTH = 500
@@ -38,7 +37,6 @@ class View:
         while True:
             # Test purposes
             count = self.controller.get_mines_number()
-            print(self.controller.update_timer())
             time = self.controller.update_timer()
             self.game.flag_count = int(count)
             if len(str(time)) == 1:
@@ -101,6 +99,10 @@ class View:
                     elif event.button == 3 and is_in_grid:
                         print("right click",x,y)
                         self.controller.on_right_click(y, x)
+
+
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        self.game.handle_click(event.pos)
                 self.game.board = self.controller.get_apparent_matrix()
                     
     def handle_start_menu_events(self):
@@ -123,6 +125,7 @@ class View:
         '''Sets the difficulty of the game'''
         self.difficulty = difficulty
         self.controller.set_difficulty(difficulty)
+
     def get_difficulty(self):
         '''Gets the difficulty of the game'''
         return self.menu.get_difficulty()
