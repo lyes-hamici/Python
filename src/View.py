@@ -17,6 +17,7 @@ class View:
             self.current_state = View.START_MENU
             self.is_matrix_created = False
             self.is_it_first_click = True
+            self.game_state = None
             
             # Initialize the pygame & setup the window
             pygame.init()
@@ -62,11 +63,14 @@ class View:
                     #self.controller.difficulty = self.difficulty
                     self.controller.create_game_board()
                     self.game.board = self.controller.get_apparent_matrix()
-                self.game.draw()
-                self.handle_game_events()
+                if self.game_state == None:
+                    self.game.draw()
+                    self.handle_game_events()
+                elif self.game_state == True:
+                    pass
+                elif self.game_state == False:
+                    pass
                 
-            elif self.current_state == View.END_MENU:
-                self.handle_end_menu_events()
             
             # Put on screen the drawing     
             pygame.display.update()
@@ -94,7 +98,7 @@ class View:
                             self.controller.start_timer()
                             self.is_it_first_click = False
                         # Temporary solution to resolve the inversion of the x and y
-                        self.controller.game_logic(y, x)
+                        self.game_state = self.controller.game_logic(y, x)
                         print(" game board ")
                         for i in self.game.board:
                             print(i)
