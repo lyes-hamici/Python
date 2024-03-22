@@ -83,8 +83,8 @@ class Model:
 
     def create_matrix(self, value_x, value_y):
 
-        self.value_x = value_x
-        self.value_y = value_y
+        self.value_x = value_y
+        self.value_y = value_x
         self.matrix_size = self.value_x * self.value_y
         self.matrix_variable = [[0 for i in range(self.value_y)] for j in range(self.value_x)]
         self.apparent_matrix = [[0 for i in range(self.value_y)] for j in range(self.value_x)]
