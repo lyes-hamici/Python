@@ -146,12 +146,13 @@ class Model:
                 self.vis.append([x,y])
             if self.check_win():
                 self.show_mines()
+                self.timer_running = False
                 print ("you win")
                 return True
             return None
         
     def check_win(self):
-        if len(self.vis) == self.matrix_size * self.matrix_size - self.start_mines:
+        if len(self.vis) == self.matrix_size - self.start_mines:
             print("Win verifié")
             return True
         else:
