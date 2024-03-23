@@ -174,8 +174,7 @@ class View:
             self.WIDTH = 1600
             self.HEIGHT = 750
         self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
-        
-        
+    
 # Debug purposes
 if __name__ == "__main__":
     class Controller:
