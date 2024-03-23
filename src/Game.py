@@ -33,16 +33,11 @@ class Game:
     def draw(self):
         '''Draws the game play interface'''
         self.window.fill(self.view.COLOR)
+        rows = len(self.board)
+        cols = len(self.board[0])
         # Draw the grid based on the difficulty
-        if self.view.difficulty == 'easy':
-            self.calculate_margin(10, 10)
-            self.draw_grid(10, 10)
-        elif self.view.difficulty == 'medium':
-            self.calculate_margin(20, 20)
-            self.draw_grid(20, 20)
-        elif self.view.difficulty == 'hard':
-            self.calculate_margin(20, 50)
-            self.draw_grid(20, 50)
+        self.calculate_margin(rows,cols)
+        self.draw_grid(rows,cols)
         self.draw_timer(self.timer)
         self.draw_flag_counter(self.flag_count)
         self.draw_reset_button()
