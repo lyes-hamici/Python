@@ -71,6 +71,10 @@ class Controller:
         '''Updates the timer'''
         return self.model.update_timer()
     
+    def reset_game(self):
+        '''Resets the game'''
+        self.model.reset_game()
+    
                 
 if __name__ == "__main__":
     controller = Controller()
