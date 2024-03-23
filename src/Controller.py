@@ -73,7 +73,10 @@ class Controller:
     
     def reset_game(self):
         '''Resets the game'''
-        self.model.reset_game()
+        # self.model.reset_game()
+        self.model = Model()
+        self.view = View(self)
+        controller.main()
     
                 
 if __name__ == "__main__":

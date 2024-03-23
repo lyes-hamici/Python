@@ -74,6 +74,7 @@ class Win:
                     self.stop_running_win_menu()
                     self.view.current_state = 0
                     self.view.resize_window("oups")
+                    self.view.controller.reset_game()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
 
