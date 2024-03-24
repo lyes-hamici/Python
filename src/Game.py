@@ -65,7 +65,7 @@ class Game:
             for x in range(0, cols):
                 y_increment = y * self.TILE_SIZE
                 x_increment = x * self.TILE_SIZE
-                #!!!!!CHANGE THE NUMBERS!!!!!
+                #Condition to show the tiles in fonction of the value of the matrix
                 if self.board[y][x] == 0:
                     self.window.blit(self.base_tile, (start_x + x_increment, start_y + y_increment))
                     if [y,x] in self.view.controller.get_vis():
@@ -142,6 +142,7 @@ class Game:
         self.window.blit(text, (x, y))
 
     def draw_reset_button(self):
+        '''Draws the reset button on the screen'''
         counter_x = Game.margin[0]
         counter_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
 
