@@ -39,6 +39,7 @@ class Menu:
 
 
     def main_menu(self):
+        """Draws the main menu of the game"""
         if self.go_to_enter_user_name == False:
             pygame.display.set_caption("Mines Weeper")
 

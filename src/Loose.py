@@ -37,6 +37,7 @@ class Loose:
         return pygame.font.Font("assets\\font\\BroncoPersonalUse.ttf", size)
 
     def loose(self):
+        """Draws the loose screen"""
         pygame.display.set_caption("Loose Menu")
         pygame.display.update()
         loose = self.police_big.render(f"You Die !",True,"white")

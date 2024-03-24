@@ -6,6 +6,7 @@ class Game:
     rows = 0
     cols = 0
     def __init__(self, view) -> None:
+        """Initializes the main game view"""
         self.view = view
         self.window = view.window
         self.board = self.view.controller.get_apparent_matrix()
@@ -43,7 +44,7 @@ class Game:
         elif self.view.difficulty == 'hard':
             self.calculate_margin(20, 50)
             self.draw_grid(20, 50)
-        self.draw_timer(self.timer)
+        self.draw_timer()
         self.draw_flag_counter(self.flag_count)
         self.draw_reset_button()
 
@@ -96,9 +97,21 @@ class Game:
                 elif self.board[y][x] == 8:
                     self.window.blit(self.tile_numbers[7], (start_x + x_increment, start_y + y_increment))
                     
-    def draw_timer(self, timer):
-        parsed_timer = [int(i) for i in str(timer)]
+    def draw_timer(self):
         '''Draws the timer on the screen'''
+        timer = self.timer
+        
+        if len(str(timer)) == 1:
+                timer = '000' + str(timer)
+        elif len(str(timer)) == 2:
+            timer = '00' + str(timer)
+        elif len(str(timer)) == 3:
+            timer = '0' + str(timer)
+        elif len(str(timer)) == 4:
+            timer = str(timer)
+            
+        parsed_timer = [int(i) for i in str(timer)]
+        
         timer_x = self.view.WIDTH // 2 - self.digital_numbers[0].get_width() // 2 * 5
         timer_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
         
@@ -111,8 +124,8 @@ class Game:
         self.draw_text("Time", timer_x + 40, timer_y + 35, 20)
     
     def draw_flag_counter(self,digit):
-        parsed_digit = [int(i) for i in str(digit)]
         '''Draws the flag counter on the screen'''
+        parsed_digit = [int(i) for i in str(digit)]
         flag_counter_x = (self.view.WIDTH - Game.margin[0] ) - self.digital_numbers[0].get_width() * 2
         flag_counter_y = (Game.margin[1] // 2) - self.digital_numbers[0].get_height() // 1.5
 

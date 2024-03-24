@@ -250,19 +250,6 @@ class Model:
             self.timer = f"{minutes:02d}{seconds:02d}"
         return int(self.timer)
                  
-    #=================TIMER=================#
-    
-    def reset_game(self):
-        self.matrix_variable = [[0 for i in range(self.value_y)] for j in range(self.value_x)]
-        self.apparent_matrix = [[0 for i in range(self.value_y)] for j in range(self.value_x)]
-        self.mines_number = self.start_mines
-        self.flagged_positions = ()
-        self.interrogation_positions = ()
-        self.clicked_positions = ()
-        self.vis = []
-        self.timer_running = False
-        self.timer = 0
-        self.time_start = 0
 #==================================================================================================#
         #=================TESTING=================#
 

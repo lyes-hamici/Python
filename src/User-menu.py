@@ -36,6 +36,7 @@ class User:
         return pygame.font.Font("assets\\font\\BroncoPersonalUse.ttf", size)
 
     def enter_user_name(self):
+        """Draws the screen were the user enters his name"""
         message = self.police.render("What is your name, agent?",True,"white")
         clock = pygame.time.Clock() 
         self.run = True

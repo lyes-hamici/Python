@@ -6,6 +6,7 @@ from pygame.locals import *
 
 class Choose_difficulty:
     def __init__(self, view):
+        """Initializes the class were the user can choose the difficulty of the game"""
         self.view = view
         pygame.init()
         self.WIDTH = 500
@@ -35,6 +36,7 @@ class Choose_difficulty:
         return pygame.font.Font("assets\\font\\BroncoPersonalUse.ttf", size)
 
     def choose_game_difficulty(self):
+        """Draws the screen where the user can choose the difficulty of the game"""
         difficulty = self.police_big.render(f"Choose a difficulty",True,"white")
         self.current_run = True
         self.SCREEN.blit(self.BG, (0, 0))

@@ -35,6 +35,7 @@ class Win:
         return pygame.font.Font("assets\\font\\BroncoPersonalUse.ttf", size)
 
     def win(self):
+        """Draws the win screen"""
         pygame.display.set_caption("Loose Menu")
         pygame.display.update()
         win = self.police_small.render(f"Congratulations,you have defused all the bombs.",True,"white")
