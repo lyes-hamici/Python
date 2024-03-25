@@ -1,11 +1,11 @@
 import pygame
-from Game import Game
-from Menu import Menu
+from .Game import Game
+from .Menu import Menu
 import time
-from Win import Win
-from Loose import Loose
-from User_menu import User_menu
-from Choose_difficulty import Choose_difficulty
+from .Win import Win
+from .Loose import Loose
+from .User_menu import User_menu
+from .Choose_difficulty import Choose_difficulty
 # from Controller import Controller
 
 class View:
@@ -53,7 +53,6 @@ class View:
             
             # Conditions to change the state of the game
             if self.current_state == View.START_MENU:
-                self.handle_start_menu_events()
                 self.menu.main_menu()
 
             elif self.current_state == View.GAME:
@@ -155,7 +154,21 @@ class View:
             if y >= Game.margin[1] and y <= Game.margin[1] + Game.rows * self.game.TILE_SIZE:
                 return True
         return False
-        
+    
+    def resize_window(self, difficulty):
+        '''Resizes the window based on the difficulty'''
+          
+        if difficulty == 'easy' or self.current_state == View.START_MENU or (self.game_state == True and self.end_click == True) or (self.game_state == False and self.end_click == True):
+            self.WIDTH = 500
+            self.HEIGHT = 500
+        elif difficulty == 'medium':
+            self.WIDTH = 750
+            self.HEIGHT = 750
+        elif difficulty == 'hard':
+            self.WIDTH = 1300
+            self.HEIGHT = 750
+        self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+    
 # Debug purposes
 if __name__ == "__main__":
     class Controller:
