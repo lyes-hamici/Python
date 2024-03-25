@@ -8,7 +8,8 @@ In this project there must be this :
 -
     
 ## 🧐 Features    
-- Feature 1 :
+- Feature 1 : 3 difficulties
+- Feature 2 : restart game
         
 ## 🛠️ Tech Stack
 - [Python](https://www.python.org/)
