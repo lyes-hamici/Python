@@ -1,11 +1,11 @@
 import pygame
-from Game import Game
-from Menu import Menu
+from .Game import Game
+from .Menu import Menu
 import time
-from Win import Win
-from Loose import Loose
-from User_menu import User_menu
-from Choose_difficulty import Choose_difficulty
+from .Win import Win
+from .Loose import Loose
+from .User_menu import User_menu
+from .Choose_difficulty import Choose_difficulty
 # from Controller import Controller
 
 class View:

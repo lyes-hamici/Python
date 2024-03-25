@@ -1,5 +1,5 @@
-from Model import Model
-from View import View
+from .Model import Model
+from .View import View
 
 class Controller:
     def __init__(self) -> None:
@@ -76,6 +76,7 @@ class Controller:
         # self.model.reset_game()
         self.model = Model()
         self.view = View(self)
+        controller = Controller()
         controller.main()
     
                 
