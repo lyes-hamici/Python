@@ -1,5 +1,5 @@
 import pygame
-from Button import Button
+from .Button import Button
 import sys
 from pygame import *
 from pygame.locals import *

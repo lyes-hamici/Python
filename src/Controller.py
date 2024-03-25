@@ -1,5 +1,5 @@
-from Model import Model
-from View import View
+from .Model import Model
+from .View import View
 
 class Controller:
     def __init__(self) -> None:
@@ -87,7 +87,16 @@ class Controller:
     def update_timer(self):
         '''Updates the timer'''
         return self.model.update_timer()
-                    
+    
+    def reset_game(self):
+        '''Resets the game'''
+        # self.model.reset_game()
+        self.model = Model()
+        self.view = View(self)
+        controller = Controller()
+        controller.main()
+    
+                
 if __name__ == "__main__":
     controller = Controller()
     controller.main()
