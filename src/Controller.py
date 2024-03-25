@@ -36,7 +36,7 @@ class Controller:
         elif self.difficulty == 'medium':
             self.model.create_matrix(20,20)
         elif self.difficulty == 'hard':
-            self.model.create_matrix(50, 20)
+            self.model.create_matrix(45, 25)
 
     def game_logic(self, x, y):
         '''Handles the game logic'''

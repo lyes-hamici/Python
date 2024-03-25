@@ -171,7 +171,7 @@ class View:
             self.WIDTH = 750
             self.HEIGHT = 750
         elif difficulty == 'hard':
-            self.WIDTH = 1600
+            self.WIDTH = 1300
             self.HEIGHT = 750
         self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
     
