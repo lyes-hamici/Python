@@ -9,7 +9,7 @@ class Game:
         self.view = view
         self.window = view.window
         self.board = self.view.controller.get_apparent_matrix()
-        self.TILE_SIZE = 30
+        self.TILE_SIZE = 25
         
         self.flag_count = 0
         self.timer = '0000'
@@ -54,6 +54,8 @@ class Game:
         
     def draw_grid(self, rows, cols):
         '''Draws the grid based on the rows and cols given as parameters'''
+        self.resize_tile()
+        
         start_x, start_y = Game.margin
         
         for y in range(0, rows):
@@ -149,6 +151,25 @@ class Game:
         if button_rect.collidepoint(pos):
             print("Reset")
             self.view.controller.reset_game()
+        
+    def resize_tile(self):
+        if self.view.difficulty == 'easy':
+            self.TILE_SIZE = 35
+        elif self.view.difficulty == 'medium':
+            self.TILE_SIZE = 30
+        elif self.view.difficulty == 'hard':
+            self.TILE_SIZE = 25
+        self.load_all_assets()
+    
+    def load_all_assets(self):
+        self.tile_numbers = self.load_tile_numbers()
+        self.base_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/base_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
+        self.empty_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/empty_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
+        self.flag_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/flag_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
+        self.bomb_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/bomb_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
+        self.clicked_bomb_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/clicked_bomb_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
+        self.interrogant_tile = pygame.transform.scale(pygame.image.load("assets/images/cases/interrogant_case.png"), (self.TILE_SIZE, self.TILE_SIZE))
+        
                     
 
     def load_tile_numbers(self):
