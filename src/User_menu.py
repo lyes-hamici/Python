@@ -104,21 +104,6 @@ class User_menu:
                     if GO_BACK_BUTTON.checkForInput(MENU_MOUSE_POS):
                         self.active_go_to_main()
 
-
-                '''pygame.draw.rect(self.SCREEN, color, input_rect)
-                text_surface = base_font.render(self.user_text, True, (255, 255, 255)) 
-            
-                self.SCREEN.blit(text_surface, (input_rect.x+5, input_rect.y+5)) 
-                
-                input_rect.w = max(100, text_surface.get_width()+10) 
-                
-                clock.tick(60) 
-                pygame.display.update()'''
-
-
-            
-
-
         else:
             self.view.choose_difficulty.choose_game_difficulty()
             pygame.display.update()

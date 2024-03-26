@@ -69,14 +69,8 @@ class Controller:
         '''Handles the right click'''
         return self.model.action_right_click(x, y)
     
-    def reset_game(self):
-        '''Resets the game'''
-        # self.model.reset_game()
-        self.model = Model()
-        self.view = View(self)
-        controller.main()
     
-        #=================TIMER=================#
+    #=================TIMER=================#
     def start_timer(self):
         '''Starts the timer'''
         if self.view.is_it_first_click:
@@ -96,7 +90,3 @@ class Controller:
         controller = Controller()
         controller.main()
     
-                
-if __name__ == "__main__":
-    controller = Controller()
-    controller.main()

@@ -162,7 +162,6 @@ class Game:
     def handle_click(self, pos):
         button_rect = self.draw_reset_button()
         if button_rect.collidepoint(pos):
-            print("Reset")
             self.view.controller.reset_game()
         
     def resize_tile(self):

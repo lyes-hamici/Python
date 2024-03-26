@@ -27,12 +27,9 @@ class Model:
     def set_mines_number(self, mines_number):
         '''Sets the number of mines to a value that is 20% more or less than mines_number'''
         lower_mines_number = int(mines_number - mines_number * 0.2)
-        upper_mines_number = int(mines_number + mines_number * 0.2)
-        
-        print(f'lower_mines_number: {lower_mines_number}, upper_mines_number: {upper_mines_number}')
+        upper_mines_number = int(mines_number + mines_number * 0.2)       
         self.start_mines = randint(lower_mines_number, upper_mines_number)
         self.mines_number = self.start_mines
-        print(f'mines_number: {self.mines_number}')
     
     def set_matrix_size(self, matrix_size):
         self.matrix_size = matrix_size
@@ -93,20 +90,15 @@ class Model:
 
     def set_mines(self, y, x):
         mines = 0
-        print ("x,y", x, y)
         safe_zone =[]
         for i in range(-1, 2):
             for j in range(-1, 2):
                 if x + i >= 0 and x + i < self.value_x and y + j >= 0 and y + j < self.value_y:
                     safe_zone.append([x+i, y+j])
-        print ("safe_zone", safe_zone)
+                    "safe_zone"
         while mines < self.mines_number:
-            print ("mines", mines)
-            print ("mines_number", self.mines_number)
-            print ("matrix size", self.matrix_size)
             x_mines = randint(0, self.value_x - 1)
             y_mines = randint(0, self.value_y - 1)
-            print ("x_mines, y_mines", x_mines, y_mines)
             if self.matrix_variable[x_mines][y_mines] != -1:
                 if [x_mines, y_mines] not in safe_zone:
                     self.matrix_variable[x_mines][y_mines] = -1
@@ -138,7 +130,7 @@ class Model:
             if self.check_lose():
                 self.show_mines()
                 self.timer_running = False
-                print ("game over")
+                "game over"
                 return False
         else:
             self.apparent_matrix[x][y] = self.matrix_variable[x][y]
@@ -147,13 +139,13 @@ class Model:
             if self.check_win():
                 self.show_mines()
                 self.timer_running = False
-                print ("you win")
+                "you win"
                 return True
             return None
         
     def check_win(self):
         if len(self.vis) == self.matrix_size - self.start_mines:
-            print("Win verifié")
+            "Win verifié"
             return True
         else:
             return False
@@ -173,17 +165,10 @@ class Model:
             self.apparent_matrix[x][y] = 13
             self.vis.append([x,y])
         elif self.matrix_variable[x][y] == 0:
-            print ("apparent matrix")
-            for i in self.apparent_matrix:
-                print(i)
-            print ("matrix variable")
-            for i in self.matrix_variable:
-                print(i)
+            "apparent matrix"
+            "matrix variable"
             self.show_neighbours(x, y)
-            print ("apparent matrix after show_neighbours")
-            for i in self.apparent_matrix:
-                print(i)
-        #if the case is empty, the empty cases are shown
+            #if the case is empty, the empty cases are shown
         
 
     def show_mines(self):
@@ -249,27 +234,4 @@ class Model:
             seconds = self.timer % 60
             self.timer = f"{minutes:02d}{seconds:02d}"
         return int(self.timer)
-                 
-#==================================================================================================#
-        #=================TESTING=================#
-
-if __name__ == "__main__":
-    model = Model()
-    model.set_mines_number(10)
-    model.create_matrix(10)
-    model.set_mines()
-    model.set_numbers()
-    print ("matrix values")
-    for i in model.get_matrix_variable():
-        print(i)
-    print ("apparent matrix")
-    for i in model.get_apparent_matrix():
-        print(i)
-
-    print(model.game_logic(0, 0))
-    model.show_cases(0, 0)
-    print ("apparent matrix")
-    for i in model.get_apparent_matrix():
-        print(i)
-    print(model.vis)
 
