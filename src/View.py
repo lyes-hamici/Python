@@ -119,11 +119,7 @@ class View:
                             self.is_it_first_click = False
                         # Temporary solution to resolve the inversion of the x and y
                         self.game_state = self.controller.game_logic(y, x)
-                        print(" game board ")
-                        for i in self.game.board:
-                            print(i)
                     elif event.button == 3 and is_in_grid and self.game_state == None: # right click
-                        print("right click",x,y)
                         self.controller.on_right_click(y, x)
                     elif event.button == 1 and not self.end_click : # end click to show lose or win screen
                         self.end_click = True
@@ -169,31 +165,3 @@ class View:
             self.HEIGHT = 750
         self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
     
-# Debug purposes
-if __name__ == "__main__":
-    class Controller:
-        def __init__(self) -> None:
-            self.board = [[0 for _ in range(10)] for _ in range(10)]
-        def set_position(self, x, y):
-            self.board[y][x] = 1
-    controller = Controller()
-    board = controller.board
-    board[1][1] = 1
-    board[2][2] = 2
-    board[3][3] = 3
-    board[4][4] = 4
-    board[5][5] = 5
-    
-    board[1][8] = 11
-    board[2][8] = 12
-    board[3][8] = 13
-    board[4][8] = 14
-    board[5][8] = 15
-    board[6][8] = 16
-    board[7][8] = 17
-    board[8][8] = 18
-    
-    for _ in board:
-        print(_)
-    view = View(controller)
-    view.main_loop()
